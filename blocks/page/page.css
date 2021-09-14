@@ -1,0 +1,10 @@
+.page {
+  max-width: 880px;
+  min-width: 320px;
+  margin: 0 auto;
+  font-family: 'Inter', 'Arial', sans-serif;
+  background: #000;
+  padding-top: 45px;
+  padding-bottom: 60px;
+}
+

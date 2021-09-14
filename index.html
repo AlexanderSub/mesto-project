@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mesto</title>
+  <link rel="stylesheet" href="./pages/index.css">
+</head>
+<body class="page">
+  <header class="header">
+    <img src="./images/logo.svg" alt="Место Россия" class="header__logo">
+  </header>
+  <main class="main">
+    <section class="profile">
+      <div class="profile__user">
+        <img src="./images/cousteau.jpg" alt="" class="profile__avatar">
+        <h1 class="profile__name" id="profile__name">Жак-Ив Кусто</h1>
+        <a href="#popup" class="profile__edit-button"></a>
+        <h3 class="profile__description">Исследователь океана</h3>
+      </div>
+      <button class="profile__add-button"></button>
+    </section>
+    <section class="cards">
+      <article class="card">
+        <img src="./images/Барнаул.JPG" alt="Барнаул" class="card__image">
+        <div class="card__wrap">
+          <h2 class="card__title">Барнаул</h2>
+          <div class="card__like"></div>
+        </div>
+      </article>
+      <article class="card">
+        <img src="./images/Ораниенбаум.JPG" alt="Ораниенбаум" class="card__image">
+        <div class="card__wrap">
+          <h2 class="card__title">Ораниенбаум</h2>
+          <div class="card__like"></div>
+        </div>
+      </article>
+      <article class="card">
+        <img src="./images/Приорат.JPG" alt="Приорат" class="card__image">
+        <div class="card__wrap">
+          <h2 class="card__title">Приорат</h2>
+          <div class="card__like"></div>
+        </div>
+      </article>
+      <article class="card">
+        <img src="./images/Пушкин.JPG" alt="Екатерининский дворец" class="card__image">
+        <div class="card__wrap">
+          <h2 class="card__title">Екатерининский дворец</h2>
+          <div class="card__like"></div>
+        </div>
+      </article>
+      <article class="card">
+        <img src="./images/Усадьба Врангеля.JPG" alt="Усадьба Врангеля" class="card__image">
+        <div class="card__wrap">
+          <h2 class="card__title">Усадьба Врангеля</h2>
+          <div class="card__like"></div>
+        </div>
+      </article>
+      <article class="card">
+        <img src="./images/Шепелевский маяк.JPG" alt="Шепелевский маяк" class="card__image">
+        <div class="card__wrap">
+          <h2 class="card__title">Шепелевский маяк</h2>
+          <div class="card__like"></div>
+        </div>
+      </article>
+    </section>
+  </main>
+  <footer class="footer">
+    <p class="footer__copyright">© 2020 Mesto Russia</p>
+  </footer>
+  <div class="popup" id="popup">
+    <div class="popup__container">
+      <h2 class="popup__profile-edit">Редактировать профиль</h2>
+      <input type="text" name="" id="profile__name" value="Жак-Ив Кусто" class="popup__input">
+      <input type="text" name="" id="" value="Исследователь океана" class="popup__input">
+      <input type="submit" value="Сохранить" class="popup__save-button">
+      <a href="#" class="popup__close-icon"></ф>
+    </div>
+  </div>
+</body>
+</html>
