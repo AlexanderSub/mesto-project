@@ -14,69 +14,69 @@
   <main class="main">
     <section class="profile">
       <div class="profile__user">
-        <img src="./images/cousteau.jpg" alt="" class="profile__avatar">
+        <img src="./images/cousteau.jpg" alt="Фото профиля" class="profile__avatar">
         <h1 class="profile__name" id="profile__name">Жак-Ив Кусто</h1>
-        <a href="#popup" class="profile__edit-button"></a>
-        <h3 class="profile__description">Исследователь океана</h3>
+        <button type="button" class="profile__edit-button"></button>
+        <p class="profile__description">Исследователь океана</p>
       </div>
-      <button class="profile__add-button"></button>
+      <button type="submit" class="profile__add-button"></button>
     </section>
     <section class="cards">
       <article class="card">
         <img src="./images/places/barnaul.JPG" alt="Барнаул" class="card__image">
         <div class="card__wrap">
           <h2 class="card__title">Барнаул</h2>
-          <div class="card__like"></div>
+          <button type="submit" class="card__like card__like_type_disabled"></button>
         </div>
       </article>
       <article class="card">
         <img src="./images/places/oranienbaum.JPG" alt="Ораниенбаум" class="card__image">
         <div class="card__wrap">
           <h2 class="card__title">Ораниенбаум</h2>
-          <div class="card__like"></div>
+          <button type="submit" class="card__like card__like_type_disabled"></button>
         </div>
       </article>
       <article class="card">
         <img src="./images/places/priorat.JPG" alt="Приорат" class="card__image">
         <div class="card__wrap">
           <h2 class="card__title">Приорат</h2>
-          <div class="card__like"></div>
+          <button type="submit" class="card__like card__like_type_disabled"></button>
         </div>
       </article>
       <article class="card">
         <img src="./images/places/ekaterin.JPG" alt="Екатерининский дворец" class="card__image">
         <div class="card__wrap">
           <h2 class="card__title">Екатерининский дворец</h2>
-          <div class="card__like"></div>
+          <button type="submit" class="card__like card__like_type_disabled"></button>
         </div>
       </article>
       <article class="card">
         <img src="./images/places/vrangel_mansion.JPG" alt="Усадьба Врангеля" class="card__image">
         <div class="card__wrap">
           <h2 class="card__title">Усадьба Врангеля</h2>
-          <div class="card__like"></div>
+          <button type="submit" class="card__like card__like_type_disabled"></button>
         </div>
       </article>
       <article class="card">
         <img src="./images/places/shepelev_lighthouse.JPG" alt="Шепелевский маяк" class="card__image">
         <div class="card__wrap">
           <h2 class="card__title">Шепелевский маяк</h2>
-          <div class="card__like"></div>
+          <button type="submit" class="card__like card__like_type_disabled"></button>
         </div>
       </article>
     </section>
   </main>
   <footer class="footer">
-    <p class="footer__copyright">© 2020 Mesto Russia</p>
+    <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
-  <div class="popup" id="popup">
-    <div class="popup__container">
+  <div class="popup">
+    <form class="popup__container" name="profile-edit">
       <h2 class="popup__title">Редактировать профиль</h2>
-      <input type="text" value="Жак-Ив Кусто" class="popup__input">
-      <input type="text" value="Исследователь океана" class="popup__input">
-      <button class="popup__save-button">Сохранить</button>
-      <a href="#" class="popup__close-icon"></a>
-    </div>
+      <input type="text" name="profile-name" value="Жак-Ив Кусто" class="popup__input">
+      <input type="text" name="profile-description" value="Исследователь океана" class="popup__input">
+      <button type="submit" class="popup__save-button">Сохранить</button>
+      <button type="button" class="popup__close-icon"></button>
+    </form>
   </div>
 </body>
 </html>

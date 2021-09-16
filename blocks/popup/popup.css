@@ -1,5 +1,6 @@
 .popup {
   width: 100%;
+  min-width: 320px;
   height: 100%;
   position: fixed;
   top: 0;
@@ -8,11 +9,4 @@
   display: none;
   justify-content: center;
   align-items: center;
-}
-
-/* Согласно заданию этот блок не требуется,
-сделал, чтобы можно было открывать и закрывать
-popup без добавления классов. С добавлением классов тоже работает. */
-.popup:target {
-  display: flex;
 }

@@ -5,6 +5,7 @@
   color: #fff;
   border: 1px solid #fff;
   background-image: url('../../../images/edit.svg');
+  background-size: 10px;
   background-repeat: no-repeat;
   background-position: center;
   grid-column: 3/4;
@@ -21,5 +22,10 @@
   .profile__edit-button {
     grid-column: 2/3;
     grid-row: 2/3;
+    width: 18px;
+    height: 18px;
+    background-size: 7.5px;
+    margin-bottom: 10px;
+    margin-left: 10px;
   }
 }

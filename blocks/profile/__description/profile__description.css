@@ -12,6 +12,8 @@
     justify-self: center;
     grid-column: 1/3;
     grid-row: 3/4;
-    margin-bottom: 36px;
+    margin-bottom: 30px;
+    font-size: 14px;
+    line-height: 17px;
   }
 }
