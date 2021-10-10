@@ -1,4 +1,4 @@
-import {initialCards} from "./cards.js"
+// import {initialCards} from "./cards.js"
 
 const profileEditPopup = document.querySelector('#profile-edit')
 const editCloseIcon = profileEditPopup.querySelector('.popup__close-icon')
