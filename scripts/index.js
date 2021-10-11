@@ -1,5 +1,3 @@
-// import {initialCards} from "./cards.js"
-
 const profileEditPopup = document.querySelector('#profile-edit')
 const editCloseIcon = profileEditPopup.querySelector('.popup__close-icon')
 const editButton = document.querySelector('.profile__edit-button')
