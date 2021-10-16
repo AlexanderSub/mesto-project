@@ -1,77 +1,59 @@
-const profileEditPopup = document.querySelector('#profile-edit')
-const editCloseIcon = profileEditPopup.querySelector('.popup__close-icon')
 const editButton = document.querySelector('.profile__edit-button')
-const submitEditButton = profileEditPopup.querySelector('.popup__save-button')
+const userName = document.querySelector('.profile__name')
+const userJob = document.querySelector('.profile__description')
 
-// Открытие и закрытие модального окна редактирования профиля
-function editPopupOpen() {
-  profileEditPopup.classList.add('popup_opened');
-}
+const editProfilePopup = document.querySelector('.popup_profile-edit')
+const userNameInput = editProfilePopup.querySelector('.popup__input_name')
+const userJobInput = editProfilePopup.querySelector('.popup__input_job')
+const editCloseIcon = editProfilePopup.querySelector('.popup__close-icon')
 
-editButton.addEventListener('click', editPopupOpen)
-
-function editPopupClose() {
-  profileEditPopup.classList.remove('popup_opened');
-}
-
-editCloseIcon.addEventListener('click', editPopupClose)
-
-// Редактирование профиля
-function editUser(userNameValue, userJobValue) {
-
-  document.querySelector('.profile__name').textContent = userNameValue;
-  document.querySelector('.profile__description').textContent = userJobValue;
-
-  editPopupClose()
-}
-
-submitEditButton.addEventListener('click', function(evt) {
-  evt.preventDefault();
-  const userName = document.querySelector('.popup__input_name')
-  const userJob = document.querySelector('.popup__input_job')
-
-  editUser(userName.value, userJob.value)
-})
-
-//Добавление карточек
-
-const cardTemplate = document.querySelector('#card__template')
+const cardTemplate = document.querySelector('.card__template')
 const cardsContainer = document.querySelector('.cards')
 const addButton = document.querySelector('.profile__add-button')
 
-const placeAddPopup = document.querySelector('#place-add')
-const placeNameInput = placeAddPopup.querySelector('input[name="place-name"]')
-const placePictureInput = placeAddPopup.querySelector('input[name="place-picture"]')
+const addPlacePopup = document.querySelector('.popup_place-add')
+const placeNameInput = addPlacePopup.querySelector('.popup__input_place')
+const placePictureInput = addPlacePopup.querySelector('.popup__input_pic')
+const addCloseIcon = addPlacePopup.querySelector('.popup__close-icon')
 
-const addCloseIcon = placeAddPopup.querySelector('.popup__close-icon')
+const picturePopup = document.querySelector('.popup_place-picture')
+const popupImage = picturePopup.querySelector('.popup__image')
+const popupImageDescription = picturePopup.querySelector('.popup__image-description')
+const pictureCloseIcon = picturePopup.querySelector('.popup__close-icon')
 
-const submitAddButton = placeAddPopup.querySelector('.popup__save-button')
-
-// Открытие и закрытие модального окна добавления карточки
-
-function addPopupOpen() {
-  placeAddPopup.classList.add('popup_opened');
+// Открытие и закрытие модальных окон
+function openPopup(popup) {
+popup.classList.add('popup_opened')
+}
+function closePopup(popup) {
+popup.classList.remove('popup_opened')
 }
 
-addButton.addEventListener('click', addPopupOpen)
-
-function addPopupClose() {
-  placeAddPopup.classList.remove('popup_opened');
+// Редактирование профиля
+function editProfile (evt) {
+  evt.preventDefault()
+  userName.textContent = userNameInput.value
+  userJob.textContent = userJobInput.value
+  closePopup(editProfilePopup)
+  editProfilePopup.removeEventListener('submit', editProfile)
 }
 
-addCloseIcon.addEventListener('click', addPopupClose)
-
-//Добавление карточки
-
-function addCard(newCard) {
-
-  const cardClone = cardTemplate.content.firstElementChild.cloneNode(true);
+//Создание карточки
+function createCard(newCard) {
+  const cardClone = cardTemplate.content.firstElementChild.cloneNode(true)
   const cardImage = cardClone.querySelector('.card__image')
 
   cardImage.setAttribute('src', newCard.link)
   cardImage.setAttribute('alt', newCard.alt)
 
-  cardImage.addEventListener('click', clickOnImage)
+  cardImage.addEventListener('click', (evt) => {
+    const link = evt.target.getAttribute('src')
+    const text = evt.target.getAttribute('alt')
+    popupImage.setAttribute('src', link)
+    popupImage.setAttribute('alt', text)
+    popupImageDescription.textContent = text
+    openPopup(picturePopup)
+  })
 
   cardClone.querySelector('.card__title').textContent = newCard.name;
 
@@ -80,19 +62,18 @@ function addCard(newCard) {
 
   cardClone.querySelector('.card__like').addEventListener('click', function (evt) {
     evt.target.classList.toggle('card__like_active')
-
   });
 
   return cardClone
 }
 
+// Добавление начальных карточек
 for (const card of initialCards) {
-	cardsContainer.append(addCard(card));
+	cardsContainer.append(createCard(card))
 }
 
-// Функция отправки карточки
-
-submitAddButton.addEventListener('click', function(evt) {
+// Добавление карточки
+function addCard(evt) {
   evt.preventDefault();
 
   const placeName = placeNameInput.value
@@ -103,39 +84,36 @@ submitAddButton.addEventListener('click', function(evt) {
     alt: placeName
   }
 
-  cardsContainer.prepend(addCard(data))
-
-  addPopupClose()
+  cardsContainer.prepend(createCard(data))
+  closePopup(addPlacePopup)
 
   placeNameInput.value = ''
   placePictureInput.value = ''
-})
-
-
-
-// Открытие и закрытие просмотра фотографии
-const picturePopup = document.querySelector('#place-picture')
-const popupImage = picturePopup.querySelector('.popup__image')
-const popupImageDescription = picturePopup.querySelector('.popup__image-description')
-
-const pictureCloseIcon = picturePopup.querySelector('.popup__close-icon')
-
-function picturePopupOpen() {
-  picturePopup.classList.add('popup_opened');
 }
 
-function picturePopupClose() {
-  picturePopup.classList.remove('popup_opened');
-}
 
-pictureCloseIcon.addEventListener('click', picturePopupClose)
+// Обработчики
 
+editButton.addEventListener('click', function (){
+  openPopup(editProfilePopup)
+  editProfilePopup.addEventListener('submit', editProfile)
+});
 
-function clickOnImage (evt) {
-  const link = evt.target.getAttribute('src');
-  const text = evt.target.getAttribute('alt');
-  popupImage.setAttribute('src', link);
-  popupImage.setAttribute('alt', text);
-  popupImageDescription.textContent = text;
-  picturePopupOpen();
-}
+editCloseIcon.addEventListener('click', function (){
+  closePopup(editProfilePopup)
+  editProfilePopup.removeEventListener('submit', editProfile)
+});
+
+addButton.addEventListener('click', function (){
+  openPopup(addPlacePopup)
+  addPlacePopup.addEventListener('submit', addCard)
+});
+
+addCloseIcon.addEventListener('click', function (){
+  closePopup(addPlacePopup)
+  addPlacePopup.removeEventListener('submit', addCard)
+});
+
+pictureCloseIcon.addEventListener('click', function (){
+  closePopup(picturePopup)
+});
