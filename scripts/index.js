@@ -91,6 +91,15 @@ function addCard(evt) {
   placePictureInput.value = ''
 }
 
+function closePopupByClickOnEscape(event) {
+  if (event.code === 'Escape') {
+    const activePopupElement = document.querySelector('.popup_opened')
+
+    if (activePopupElement) {
+      closePopup(activePopupElement)
+    }
+  }
+}
 
 // Обработчики
 
@@ -104,6 +113,13 @@ editCloseIcon.addEventListener('click', function (){
   editProfilePopup.removeEventListener('submit', editProfile)
 });
 
+editProfilePopup.addEventListener('click', function(event) {
+    if (event.target === event.currentTarget) {
+    closePopup(editProfilePopup)
+    editProfilePopup.removeEventListener('submit', editProfile)
+  }
+})
+
 addButton.addEventListener('click', function (){
   openPopup(addPlacePopup)
   addPlacePopup.addEventListener('submit', addCard)
@@ -114,6 +130,21 @@ addCloseIcon.addEventListener('click', function (){
   addPlacePopup.removeEventListener('submit', addCard)
 });
 
+addPlacePopup.addEventListener('click', function(event) {
+  if (event.target === event.currentTarget) {
+  closePopup(addPlacePopup)
+  addPlacePopup.removeEventListener('submit', addCard)
+}
+})
+
 pictureCloseIcon.addEventListener('click', function (){
   closePopup(picturePopup)
 });
+
+picturePopup.addEventListener('click', function(event) {
+  if (event.target === event.currentTarget) {
+  closePopup(picturePopup)
+}
+})
+
+document.addEventListener('keyup', closePopupByClickOnEscape)
