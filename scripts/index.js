@@ -3,8 +3,10 @@ const userName = document.querySelector('.profile__name')
 const userJob = document.querySelector('.profile__description')
 
 const editProfilePopup = document.querySelector('.popup_profile-edit')
-const userNameInput = editProfilePopup.querySelector('.popup__input_name')
-const userJobInput = editProfilePopup.querySelector('.popup__input_job')
+const editProfileForm = document.forms.profileEdit
+const profileName = editProfileForm.elements.profile_name
+const profileJob = editProfileForm.elements.profile_description
+const profileEditButton = editProfilePopup.querySelector('.popup__save-button')
 const editCloseIcon = editProfilePopup.querySelector('.popup__close-icon')
 
 const cardTemplate = document.querySelector('.card__template')
@@ -23,17 +25,17 @@ const pictureCloseIcon = picturePopup.querySelector('.popup__close-icon')
 
 // Открытие и закрытие модальных окон
 function openPopup(popup) {
-popup.classList.add('popup_opened')
+  popup.classList.add('popup_opened')
 }
 function closePopup(popup) {
-popup.classList.remove('popup_opened')
+  popup.classList.remove('popup_opened')
 }
 
 // Редактирование профиля
 function editProfile (evt) {
   evt.preventDefault()
-  userName.textContent = userNameInput.value
-  userJob.textContent = userJobInput.value
+  userName.textContent = profileName.value
+  userJob.textContent = profileJob.value
   closePopup(editProfilePopup)
   editProfilePopup.removeEventListener('submit', editProfile)
 }
