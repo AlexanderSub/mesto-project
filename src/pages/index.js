@@ -1,10 +1,43 @@
+import './index.css'
+
+import { openPopup, closePopup } from '../components/modal.js';
+
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+  ];
+
+
 const editButton = document.querySelector('.profile__edit-button')
 const userName = document.querySelector('.profile__name')
 const userJob = document.querySelector('.profile__description')
 
 const editProfilePopup = document.querySelector('.popup_profile-edit')
-const userNameInput = editProfilePopup.querySelector('.popup__input_name')
-const userJobInput = editProfilePopup.querySelector('.popup__input_job')
+const editProfileForm = document.forms.profileEdit
+const profileName = editProfileForm.elements.profile_name
+const profileJob = editProfileForm.elements.profile_description
 const editCloseIcon = editProfilePopup.querySelector('.popup__close-icon')
 
 const cardTemplate = document.querySelector('.card__template')
@@ -21,19 +54,13 @@ const popupImage = picturePopup.querySelector('.popup__image')
 const popupImageDescription = picturePopup.querySelector('.popup__image-description')
 const pictureCloseIcon = picturePopup.querySelector('.popup__close-icon')
 
-// Открытие и закрытие модальных окон
-function openPopup(popup) {
-popup.classList.add('popup_opened')
-}
-function closePopup(popup) {
-popup.classList.remove('popup_opened')
-}
+
 
 // Редактирование профиля
 function editProfile (evt) {
   evt.preventDefault()
-  userName.textContent = userNameInput.value
-  userJob.textContent = userJobInput.value
+  userName.textContent = profileName.value
+  userJob.textContent = profileJob.value
   closePopup(editProfilePopup)
   editProfilePopup.removeEventListener('submit', editProfile)
 }
@@ -44,7 +71,7 @@ function createCard(newCard) {
   const cardImage = cardClone.querySelector('.card__image')
 
   cardImage.setAttribute('src', newCard.link)
-  cardImage.setAttribute('alt', newCard.alt)
+  cardImage.setAttribute('alt', newCard.name)
 
   cardImage.addEventListener('click', (evt) => {
     const link = evt.target.getAttribute('src')
@@ -91,16 +118,6 @@ function addCard(evt) {
   placePictureInput.value = ''
 }
 
-function closePopupByClickOnEscape(event) {
-  if (event.code === 'Escape') {
-    const activePopupElement = document.querySelector('.popup_opened')
-
-    if (activePopupElement) {
-      closePopup(activePopupElement)
-    }
-  }
-}
-
 // Обработчики
 
 editButton.addEventListener('click', function (){
@@ -113,13 +130,6 @@ editCloseIcon.addEventListener('click', function (){
   editProfilePopup.removeEventListener('submit', editProfile)
 });
 
-editProfilePopup.addEventListener('click', function(event) {
-    if (event.target === event.currentTarget) {
-    closePopup(editProfilePopup)
-    editProfilePopup.removeEventListener('submit', editProfile)
-  }
-})
-
 addButton.addEventListener('click', function (){
   openPopup(addPlacePopup)
   addPlacePopup.addEventListener('submit', addCard)
@@ -130,21 +140,9 @@ addCloseIcon.addEventListener('click', function (){
   addPlacePopup.removeEventListener('submit', addCard)
 });
 
-addPlacePopup.addEventListener('click', function(event) {
-  if (event.target === event.currentTarget) {
-  closePopup(addPlacePopup)
-  addPlacePopup.removeEventListener('submit', addCard)
-}
-})
-
 pictureCloseIcon.addEventListener('click', function (){
   closePopup(picturePopup)
 });
 
-picturePopup.addEventListener('click', function(event) {
-  if (event.target === event.currentTarget) {
-  closePopup(picturePopup)
-}
-})
 
-document.addEventListener('keyup', closePopupByClickOnEscape)
+
