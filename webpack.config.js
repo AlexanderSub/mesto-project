@@ -10,11 +10,13 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'main.js',
-    publicPath: '',
+        publicPath: '',
   },
   mode: 'development',
   devServer: {
-    contentBase: path.resolve(__dirname, './dist'),
+    static: {
+      directory: path.join(__dirname, './dist'),
+    },
     open: true,
     compress: true,
     port: 8080
