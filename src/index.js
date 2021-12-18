@@ -3,4 +3,5 @@ import './components/modal.js'
 import './components/validate.js'
 import './components/card.js'
 import './components/utils.js'
+import './components/profile.js'
 
