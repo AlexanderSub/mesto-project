@@ -5,13 +5,11 @@ const popups = document.querySelectorAll('.popup')
 // Открытие и закрытие модальных окон
 export function openPopup(popup) {
   popup.classList.add('popup_opened')
-  popup.addEventListener('click', closePopupByClickOnOverlay)
   document.addEventListener('keydown', closePopupByClickOnEscape)
 }
 
 export function closePopup(popup) {
   popup.classList.remove('popup_opened')
-  popup.removeEventListener('click', closePopupByClickOnOverlay)
   document.removeEventListener('keydown', closePopupByClickOnEscape)
 }
 
