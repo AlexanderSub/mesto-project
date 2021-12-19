@@ -1,10 +1,12 @@
-import { picturePopup, addPlacePopup } from "./utils.js"
-import { openPopup, closePopup } from "./modal.js"
+import { picturePopup, addPlacePopup } from "./modal.js"
+import { openPopup, closePopup } from "./utils.js"
+import { enableValidation } from "./validate.js"
 
 export const cardsContainer = document.querySelector('.cards')
 const cardTemplate = document.querySelector('.card__template')
 const popupImage = picturePopup.querySelector('.popup__image')
 const popupImageDescription = picturePopup.querySelector('.popup__image-description')
+const addPlaceForm = addPlacePopup.querySelector('.popup__form')
 const placeNameInput = addPlacePopup.querySelector('.popup__input_place')
 const placePictureInput = addPlacePopup.querySelector('.popup__input_pic')
 
@@ -51,7 +53,8 @@ export function addCard(evt) {
 
   cardsContainer.prepend(createCard(data))
   closePopup(addPlacePopup)
-
-  placeNameInput.value = ''
-  placePictureInput.value = ''
+  addPlaceForm.reset()
+  enableValidation()
 }
+
+
