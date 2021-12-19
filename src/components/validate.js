@@ -22,7 +22,7 @@ const hasInvalidInput = (inputList) => {
   })
 }
 
-const toggleButtonState = (inputList, buttonElement) => {
+export const toggleButtonState = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add('popup__save-button_disabled')
     buttonElement.setAttribute('disabled', true)
@@ -37,6 +37,7 @@ const setEventListeners = (formElement) => {
   const buttonElement = formElement.querySelector('.popup__save-button');
 
   toggleButtonState(inputList, buttonElement)
+
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
       checkInputValidity(formElement, inputElement);
@@ -45,7 +46,7 @@ const setEventListeners = (formElement) => {
   });
 };
 
-export const enableValidation = () => {
+const enableValidation = (formElement) => {
   const formList = Array.from(document.querySelectorAll(`.popup__form`))
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', (evt) => {
@@ -55,6 +56,5 @@ export const enableValidation = () => {
     setEventListeners(formElement)
   })
 }
-
 
 enableValidation()

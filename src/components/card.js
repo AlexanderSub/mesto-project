@@ -1,6 +1,5 @@
 import { picturePopup, addPlacePopup } from "./modal.js"
 import { openPopup, closePopup } from "./utils.js"
-import { enableValidation } from "./validate.js"
 
 export const cardsContainer = document.querySelector('.cards')
 const cardTemplate = document.querySelector('.card__template')
@@ -9,6 +8,7 @@ const popupImageDescription = picturePopup.querySelector('.popup__image-descript
 const addPlaceForm = addPlacePopup.querySelector('.popup__form')
 const placeNameInput = addPlacePopup.querySelector('.popup__input_place')
 const placePictureInput = addPlacePopup.querySelector('.popup__input_pic')
+const addPlaceButton = addPlacePopup.querySelector('.popup__save-button')
 
 //Создание карточки
 export function createCard(newCard) {
@@ -54,7 +54,8 @@ export function addCard(evt) {
   cardsContainer.prepend(createCard(data))
   closePopup(addPlacePopup)
   addPlaceForm.reset()
-  enableValidation()
+  addPlaceButton.classList.add('popup__save-button_disabled')
+  addPlaceButton.setAttribute('disabled', true)
 }
 
 
