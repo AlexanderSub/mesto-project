@@ -1,28 +1,22 @@
-// Открытие и закрытие модальных окон
-export function openPopup(popup) {
-  popup.classList.add('popup_opened')
-  popup.addEventListener('click', closePopupByClickOnOverlay)
-  document.addEventListener('keydown', closePopupByClickOnEscape)
-}
+import { editProfilePopup, editProfile } from "./profile.js"
+import { addCard } from "./card.js"
+import { openPopup } from "./utils.js"
 
-export function closePopup(popup) {
-  popup.classList.remove('popup_opened')
-  popup.removeEventListener('click', closePopupByClickOnOverlay)
-  document.removeEventListener('keydown', closePopupByClickOnEscape)
-}
+const editButton = document.querySelector('.profile__edit-button')
+const addButton = document.querySelector('.profile__add-button')
+export const addPlacePopup = document.querySelector('.popup_place-add')
+export const picturePopup = document.querySelector('.popup_place-picture')
 
-function closePopupByClickOnEscape(event) {
-  if (event.code === 'Escape') {
-    const activePopupElement = document.querySelector('.popup_opened')
+// Обработчики
 
-    if (activePopupElement) {
-      closePopup(activePopupElement)
-    }
-  }
-}
+editButton.addEventListener('click', function (){
+  openPopup(editProfilePopup)
+});
 
-function closePopupByClickOnOverlay(event) {
-  if (event.target === event.currentTarget) {
-    closePopup(event.target)
-  }
-}
+addButton.addEventListener('click', function (){
+  openPopup(addPlacePopup)
+});
+
+editProfilePopup.addEventListener('submit', editProfile)
+
+addPlacePopup.addEventListener('submit', addCard)

@@ -1,4 +1,4 @@
-import { closePopup } from "./modal.js"
+import { closePopup } from "./utils.js"
 
 const userName = document.querySelector('.profile__name')
 const userJob = document.querySelector('.profile__description')
@@ -13,5 +13,4 @@ export function editProfile (evt) {
   userName.textContent = profileName.value
   userJob.textContent = profileJob.value
   closePopup(editProfilePopup)
-  editProfilePopup.removeEventListener('submit', editProfile)
 }

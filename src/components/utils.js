@@ -1,38 +1,47 @@
-import { editProfile } from "./profile.js"
-import { editProfilePopup } from "./profile.js"
-import { openPopup, closePopup } from "./modal.js"
-import { addCard } from "./card.js"
+// Функционал открытия модальных окон и их закрытия при клике на крестик, оверлэй или нажатие на клавишу Escape
 
-const editButton = document.querySelector('.profile__edit-button')
-const editCloseIcon = editProfilePopup.querySelector('.popup__close-icon')
-const addButton = document.querySelector('.profile__add-button')
-export const addPlacePopup = document.querySelector('.popup_place-add')
-const addCloseIcon = addPlacePopup.querySelector('.popup__close-icon')
-export const picturePopup = document.querySelector('.popup_place-picture')
-const pictureCloseIcon = picturePopup.querySelector('.popup__close-icon')
+const popups = document.querySelectorAll('.popup')
 
-// Обработчики
+// Открытие и закрытие модальных окон
+export function openPopup(popup) {
+  popup.classList.add('popup_opened')
+  popup.addEventListener('click', closePopupByClickOnOverlay)
+  document.addEventListener('keydown', closePopupByClickOnEscape)
+}
 
-editButton.addEventListener('click', function (){
-  openPopup(editProfilePopup)
-  editProfilePopup.addEventListener('submit', editProfile)
-});
+export function closePopup(popup) {
+  popup.classList.remove('popup_opened')
+  popup.removeEventListener('click', closePopupByClickOnOverlay)
+  document.removeEventListener('keydown', closePopupByClickOnEscape)
+}
 
-editCloseIcon.addEventListener('click', function (){
-  closePopup(editProfilePopup)
-  editProfilePopup.removeEventListener('submit', editProfile)
-});
+// Закрытие модальных окон при нажатии на Escape
+function closePopupByClickOnEscape(event) {
+  if (event.code === 'Escape') {
+    const activePopupElement = document.querySelector('.popup_opened')
 
-addButton.addEventListener('click', function (){
-  openPopup(addPlacePopup)
-  addPlacePopup.addEventListener('submit', addCard)
-});
+    if (activePopupElement) {
+      closePopup(activePopupElement)
+    }
+  }
+}
 
-addCloseIcon.addEventListener('click', function (){
-  closePopup(addPlacePopup)
-  addPlacePopup.removeEventListener('submit', addCard)
-});
+// Закрытие модальных окон при клике на оверлэй
+function closePopupByClickOnOverlay(event) {
+  if (event.target === event.currentTarget) {
+    closePopup(event.target)
+  }
+}
 
-pictureCloseIcon.addEventListener('click', function (){
-  closePopup(picturePopup)
-});
+
+// Закрытие модальных окон при клике на крестик
+popups.forEach((popup) => {
+  popup.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(popup)
+    }
+    if (evt.target.classList.contains('popup__close-icon')) {
+      closePopup(popup)
+    }
+  })
+})
