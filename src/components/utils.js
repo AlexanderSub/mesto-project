@@ -1,3 +1,9 @@
+import { postCard, editUserData, editUserAvatar } from "./api"
+import { addCard, placeNameInput, placePictureInput, cardsContainer, addPlaceForm } from "./card"
+import { userName, userJob, profileName, profileJob, editProfileForm, editAvatarForm, userAvatarInput, userAvatar, editProfilePopup } from "./profile"
+import { addPlacePopup, avatarPopup } from "./modal"
+import { validationConfig } from "./validate"
+
 // Функционал открытия модальных окон и их закрытия при клике на крестик, оверлэй или нажатие на клавишу Escape
 
 const popups = document.querySelectorAll('.popup')
@@ -31,7 +37,6 @@ function closePopupByClickOnOverlay(event) {
   }
 }
 
-
 // Закрытие модальных окон при клике на крестик
 popups.forEach((popup) => {
   popup.addEventListener('click', (evt) => {
@@ -43,3 +48,72 @@ popups.forEach((popup) => {
     }
   })
 })
+
+
+
+
+export function addCardHandler(evt) {
+  evt.submitter.textContent = 'Сохранение...';
+  evt.submitter.disabled = true;
+
+  postCard(placeNameInput.value, placePictureInput.value)
+    .then((card) => {
+      addCard(card, cardsContainer);
+      evt.submitter.classList.add(validationConfig.disabledButtonClass);
+      evt.submitter.textContent = 'Создать';
+      closePopup(addPlacePopup);
+      addPlaceForm.reset();
+    })
+    .catch(err => {
+      console.log(err);
+      evt.submitter.textContent = 'Ошибка! Попробуйте ещё раз';
+      evt.submitter.disabled = false;
+    })
+}
+
+export function editProfileHandler(evt) {
+  evt.submitter.textContent = 'Сохранение...';
+  evt.submitter.disabled = true;
+
+  editUserData(profileName.value, profileJob.value)
+    .then(userData => {
+      userName.textContent = userData.name,
+      userJob.textContent = userData.about,
+      evt.submitter.classList.add(validationConfig.disabledButtonClass);
+      evt.submitter.textContent = 'Создать';
+      closePopup(editProfilePopup);
+      editProfileForm.reset();
+    })
+    .catch(err => {
+      console.log(err);
+      evt.submitter.textContent = 'Ошибка! Попробуйте ещё раз';
+      evt.submitter.disabled = false;
+    })
+
+}
+
+
+
+export function editAvatarHandler(evt) {
+  evt.submitter.textContent = 'Сохранение...';
+  evt.submitter.disabled = true;
+
+  editUserAvatar(userAvatarInput.value)
+    .then(userData => {
+      userAvatar.src = userData.avatar,
+      evt.submitter.classList.add(validationConfig.disabledButtonClass);
+      evt.submitter.textContent = 'Создать';
+      closePopup(avatarPopup);
+      editAvatarForm.reset();
+    })
+    .catch(err => {
+      console.log(err);
+      evt.submitter.textContent = 'Ошибка! Попробуйте ещё раз';
+      evt.submitter.disabled = false;
+    })
+}
+
+
+export function hasLike(card) {
+  return card.likes.some(obj => obj._id == userId)
+}

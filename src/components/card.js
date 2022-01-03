@@ -1,61 +1,87 @@
-import { picturePopup, addPlacePopup } from "./modal.js"
-import { openPopup, closePopup } from "./utils.js"
+import { picturePopup, addPlacePopup, deleteCardPopup } from "./modal.js"
+import { openPopup, closePopup, hasLike } from "./utils.js"
+import { userId } from "../pages/index.js"
+import { deleteCard, putLike, deleteLike } from "./api.js"
 
 export const cardsContainer = document.querySelector('.cards')
 const cardTemplate = document.querySelector('.card__template')
 const popupImage = picturePopup.querySelector('.popup__image')
 const popupImageDescription = picturePopup.querySelector('.popup__image-description')
-const addPlaceForm = addPlacePopup.querySelector('.popup__form')
-const placeNameInput = addPlacePopup.querySelector('.popup__input_place')
-const placePictureInput = addPlacePopup.querySelector('.popup__input_pic')
-const addPlaceButton = addPlacePopup.querySelector('.popup__save-button')
+export const addPlaceForm = addPlacePopup.querySelector('.popup__form')
+export const placeNameInput = addPlacePopup.querySelector('.popup__input_place')
+export const placePictureInput = addPlacePopup.querySelector('.popup__input_pic')
+const deleteCardForm = document.querySelector('.popup_delete-card-form')
 
 //Создание карточки
-export function createCard(newCard) {
+export function createCard(card) {
   const cardClone = cardTemplate.content.firstElementChild.cloneNode(true)
   const cardImage = cardClone.querySelector('.card__image')
+  const cardTitle = cardClone.querySelector('.card__title')
+  const likeButton = cardClone.querySelector('.card__like')
+  const likeCounter = cardClone.querySelector('.card__like-counter')
+  const deleteButton = cardClone.querySelector('.card__delete')
 
-  cardImage.setAttribute('src', newCard.link)
-  cardImage.setAttribute('alt', newCard.name)
+  cardImage.src = card.link
+  cardImage.alt = card.name
+  cardTitle.textContent = card.name
+  likeCounter.textContent = card.likes.length
 
+  if (card.owner._id !== userId) {
+    deleteButton.remove()
+  }
+
+  deleteButton.addEventListener('click', (evt) => {
+    deleteCard(card._id)
+    .then(() => {
+      evt.target.closest('.card').remove()
+    })
+    .catch(err => console.log(err))
+  })
+
+
+  // Просмотр полного размера изображения
   cardImage.addEventListener('click', (evt) => {
-    const link = evt.target.getAttribute('src')
-    const text = evt.target.getAttribute('alt')
-    popupImage.setAttribute('src', link)
-    popupImage.setAttribute('alt', text)
-    popupImageDescription.textContent = text
+    popupImage.src = evt.target.src
+    popupImage.alt = evt.target.alt
+    popupImageDescription.textContent = evt.target.alt
     openPopup(picturePopup)
   })
 
-  cardClone.querySelector('.card__title').textContent = newCard.name;
+  if (card.likes.find(like => like._id === userId)) {
+    likeButton.classList.add('card__like_active');
+  } else {
+    likeButton.classList.remove('card__like_active');
+  }
 
-  cardClone.querySelector('.card__delete').addEventListener('click', function (evt) {
-    evt.target.closest('.card').remove()})
-
-  cardClone.querySelector('.card__like').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('card__like_active')
-  });
+  likeButton.addEventListener('click', (evt) => {
+  if (card.likes.find(like => like._id === userId)) {
+    deleteLike(card._id)
+    .then((card) => {
+      likeCounter.textContent = card.likes.length,
+      evt.target.classList.remove('card__like_active')
+      // likes = card.likes
+    })
+    .catch(err => console.log(err))
+    } else {
+      putLike(card._id)
+      .then((card) => {
+        likeCounter.textContent = card.likes.length,
+        evt.target.classList.add('card__like_active')
+        // likes = card.likes
+      })
+      .catch(err => console.log(err))
+    }
+})
 
   return cardClone
 }
 
-// Добавление карточки
-export function addCard(evt) {
-  evt.preventDefault();
 
-  const placeName = placeNameInput.value
-  const placeLink = placePictureInput.value
-  const data = {
-    name: placeName,
-    link: placeLink,
-    alt: placeName
-  }
+export function addCard(data, cardsContainer) {
+  const name = data.name;
+  const link = data.link;
+  const card = createCard(name, link, data);
 
-  cardsContainer.prepend(createCard(data))
-  closePopup(addPlacePopup)
-  addPlaceForm.reset()
-  addPlaceButton.classList.add('popup__save-button_disabled')
-  addPlaceButton.setAttribute('disabled', true)
+  cardsContainer.prepend(card);
 }
-
 

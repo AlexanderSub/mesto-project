@@ -1,0 +1,30 @@
+.profile__overlay {
+  width: 120px;
+  height: 120px;
+  background-color: #000;
+  background-image: url(../../../images/edit.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 26px;
+  opacity: 0;
+  margin-right: 30px;
+  grid-column: 1/2;
+  grid-row: 1/3;
+  z-index: 2;
+  transition: opacity .1s linear;
+}
+
+@media screen and (max-width: 618px) {
+  .profile__overlay {
+    justify-self: center;
+    grid-column: 1/3;
+    grid-row: 1/2;
+    margin-right: 0;
+    margin-bottom: 26px;
+  }
+}
+
+.profile__overlay:hover {
+  opacity: .8;
+  cursor: pointer;
+}
