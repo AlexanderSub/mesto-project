@@ -1,16 +1,14 @@
 import { closePopup } from "./utils.js"
+import { editUserAvatar } from "./api.js"
+import { avatarPopup } from "./modal.js"
 
-const userName = document.querySelector('.profile__name')
-const userJob = document.querySelector('.profile__description')
+export const userName = document.querySelector('.profile__name')
+export const userJob = document.querySelector('.profile__description')
+export const userAvatar = document.querySelector('.profile__avatar')
 export const editProfilePopup = document.querySelector('.popup_profile-edit')
-const editProfileForm = document.forms.profileEdit
-const profileName = editProfileForm.elements.profile_name
-const profileJob = editProfileForm.elements.profile_description
+export const editProfileForm = document.forms.profileEdit
+export const profileName = editProfileForm.elements.profile_name
+export const profileJob = editProfileForm.elements.profile_description
+export const editAvatarForm = document.forms.editAvatar
+export const userAvatarInput = editAvatarForm.elements.profile_avatar
 
-// Редактирование профиля
-export function editProfile (evt) {
-  evt.preventDefault()
-  userName.textContent = profileName.value
-  userJob.textContent = profileJob.value
-  closePopup(editProfilePopup)
-}

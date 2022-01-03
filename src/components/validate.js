@@ -1,4 +1,4 @@
-const validationConfig = {
+export const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__save-button',
@@ -53,7 +53,7 @@ const setEventListeners = (formElement, validationConfig) => {
   });
 };
 
-const enableValidation = ({formSelector, ...rest}) => {
+export const enableValidation = ({formSelector, ...rest}) => {
   const getFormList = Array.from(document.querySelectorAll(formSelector))
   getFormList.forEach((formElement) => {
     formElement.addEventListener('submit', (evt) => {
@@ -64,4 +64,6 @@ const enableValidation = ({formSelector, ...rest}) => {
   })
 }
 
-enableValidation(validationConfig)
+// enableValidation(validationConfig)
+
+

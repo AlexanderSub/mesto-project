@@ -1,35 +1,35 @@
 import './index.css'
 
 import { createCard, cardsContainer } from '../components/card';
+import { getInitialCards, getUserData } from '../components/api';
+import { enableValidation, validationConfig } from '../components/validate'
+import { userName, userJob, userAvatar, profileName, profileJob } from '../components/profile';
 
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-  ];
+export let userId
 
 // Добавление начальных карточек
-for (const card of initialCards) {
-	cardsContainer.append(createCard(card))
-}
+getInitialCards()
+  .then((result) => {
+    for (const card of result) {
+      cardsContainer.append(createCard(card))
+    }
+
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+
+enableValidation(validationConfig)
+
+getUserData()
+  .then((userData) => {
+    userId = userData._id
+    userName.textContent = userData.name
+    userJob.textContent = userData.about
+    userAvatar.src = userData.avatar
+    profileName.value = userData.name
+    profileJob.value = userData.about
+  })
+  .catch((err) => {
+    console.log(err)
+  })

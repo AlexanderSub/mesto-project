@@ -5,6 +5,7 @@
   height: 19px;
   object-fit: cover;
   align-self: center;
+  margin-bottom: 3px;
 }
 
 .card__like:hover {

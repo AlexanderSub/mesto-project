@@ -17,3 +17,10 @@
 Изменение внешнего вида ссылок при помощи инструментов hover.
 Всплывающие модальные окна при клике на иконку редактирования профиля, добавления карточки, картинки.
 Закрытие модальных окон при клике на иконку закрытия, оверлэй или нажатии клавиши Escape.
+
+
+Ссылки на макеты:
+
+Вёрстка https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4
+Валидация https://www.figma.com/file/kRVLKwYG3d1HGLvh7JFWRT/JavaScript.-Sprint-6
+Сервер https://www.figma.com/file/PSdQFRHoxXJFs2FH8IXViF/JavaScript.-Sprint-9
