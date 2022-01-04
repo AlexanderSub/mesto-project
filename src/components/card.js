@@ -1,45 +1,31 @@
-import { picturePopup, addPlacePopup, deleteCardPopup } from "./modal.js"
-import { openPopup, closePopup, hasLike } from "./utils.js"
-import { userId } from "../pages/index.js"
-import { deleteCard, putLike, deleteLike } from "./api.js"
+import { picturePopup, deleteCardPopup, deleteCardForm, popupImage, popupImageDescription, cardsContainer, cardTemplate } from "./constants"
+import { openPopup, closePopup } from "./utils"
+import { userId } from "../pages/index"
+import { deleteCard, putLike, deleteLike } from "./api"
 
-export const cardsContainer = document.querySelector('.cards')
-const cardTemplate = document.querySelector('.card__template')
-const popupImage = picturePopup.querySelector('.popup__image')
-const popupImageDescription = picturePopup.querySelector('.popup__image-description')
-export const addPlaceForm = addPlacePopup.querySelector('.popup__form')
-export const placeNameInput = addPlacePopup.querySelector('.popup__input_place')
-export const placePictureInput = addPlacePopup.querySelector('.popup__input_pic')
-const deleteCardForm = document.querySelector('.popup_delete-card-form')
+const getCardData = (card) => {
+  const cardData = {
+    likeCounter: card.likes.length,
+    likedByMe: Boolean(card.likes.find(owner => owner._id === userId)),
+    cardId: card._id,
+    name: card.name,
+    link: card.link,
+    isMine: card.owner._id === userId,
+  };
+  return cardData;
+}
 
-//Создание карточки
-export function createCard(card) {
-  const cardClone = cardTemplate.content.firstElementChild.cloneNode(true)
-  const cardImage = cardClone.querySelector('.card__image')
-  const cardTitle = cardClone.querySelector('.card__title')
-  const likeButton = cardClone.querySelector('.card__like')
-  const likeCounter = cardClone.querySelector('.card__like-counter')
-  const deleteButton = cardClone.querySelector('.card__delete')
+export const createCard = ({ cardId = '', link = '', name = '', likeCounter = 0, isMine = false, likedByMe = false } = {}) => {
 
-  cardImage.src = card.link
-  cardImage.alt = card.name
-  cardTitle.textContent = card.name
-  likeCounter.textContent = card.likes.length
+  const card = cardTemplate.cloneNode(true)
+  card.cardID = cardId
 
-  if (card.owner._id !== userId) {
-    deleteButton.remove()
-  }
+  // Карточка изображения
+  const cardImage = card.querySelector('.card__image')
+  cardImage.src = link
+  cardImage.alt = name
 
-  deleteButton.addEventListener('click', (evt) => {
-    deleteCard(card._id)
-    .then(() => {
-      evt.target.closest('.card').remove()
-    })
-    .catch(err => console.log(err))
-  })
-
-
-  // Просмотр полного размера изображения
+  card.querySelector('.card__title').textContent = name
   cardImage.addEventListener('click', (evt) => {
     popupImage.src = evt.target.src
     popupImage.alt = evt.target.alt
@@ -47,41 +33,97 @@ export function createCard(card) {
     openPopup(picturePopup)
   })
 
-  if (card.likes.find(like => like._id === userId)) {
-    likeButton.classList.add('card__like_active');
-  } else {
-    likeButton.classList.remove('card__like_active');
+  // Кнопка удаления
+  const deleteButton = card.querySelector('.card__delete')
+  if (!isMine) {
+    deleteButton.remove()
   }
+  deleteButton.addEventListener('click', () => {
+    deleteCardForm.cardId = cardId
+    deleteCardForm.currentCard = card
+    openPopup(deleteCardPopup)
+  });
 
-  likeButton.addEventListener('click', (evt) => {
-  if (card.likes.find(like => like._id === userId)) {
-    deleteLike(card._id)
-    .then((card) => {
-      likeCounter.textContent = card.likes.length,
-      evt.target.classList.remove('card__like_active')
-      // likes = card.likes
+  // Кнопка лайка
+  const likeButton = card.querySelector('.card__like')
+  likeButton.addEventListener('click', () => {
+    toggleLike(card, likeButton, cardId)
+  });
+  updateLikeStatus(likeButton, likedByMe)
+
+  // Счётчик лайков
+  card.querySelector('.card__like-counter').textContent = likeCounter
+
+  return card
+}
+
+export const renderServerCards = (cardList) => {
+  cardList.forEach(card => {
+    const cardData = getCardData(card)
+    insertServerCards(createCard(cardData))
+  })
+}
+
+export const insertServerCards = (card, place = cardsContainer) => {
+  place.append(card)
+}
+
+export const renderNewCard = (cardList) => {
+  cardList.forEach(card => {
+    const cardData = getCardData(card)
+    insertNewCard(createCard(cardData))
+  })
+}
+
+export const insertNewCard = (card, place = cardsContainer) => {
+  place.prepend(card)
+}
+
+const removeCard = (card) => {
+  card.remove()
+}
+
+const updateLikeStatus = (likeButton, likedByMe = false) => {
+  if (likedByMe) {
+    likeButton.classList.add('card__like_active')
+  } else {
+    likeButton.classList.remove('card__like_active')
+  }
+}
+
+const toggleLike = (card, likeButton, cardId) => {
+
+  const handleLike = likeButton.classList.contains('card__like_active') ? deleteLike : putLike
+
+  handleLike(cardId)
+    .then(cardResponse => {
+      const cardData = getCardData(cardResponse)
+      updateLikeStatus(likeButton, cardData.liked)
+      countLikes(card, cardData.likeCounter)
     })
     .catch(err => console.log(err))
-    } else {
-      putLike(card._id)
-      .then((card) => {
-        likeCounter.textContent = card.likes.length,
-        evt.target.classList.add('card__like_active')
-        // likes = card.likes
-      })
-      .catch(err => console.log(err))
-    }
+}
+
+const countLikes = (card, likeCounter = 0) => {
+  card.querySelector('.card__like-counter').textContent = likeCounter
+}
+
+
+deleteCardPopup.addEventListener('submit', (evt) => {
+  evt.preventDefault()
+  evt.submitter.textContent = 'Удаление...'
+  evt.submitter.disabled = true
+  const currentCard = evt.target.currentCard
+  deleteCard(evt.target.cardId)
+    .then(() => {
+      removeCard(currentCard)
+      closePopup(deleteCardPopup)
+      evt.submitter.textContent = 'Да'
+      evt.submitter.disabled = false
+    })
+    .catch(err => {
+      console.log(err)
+      evt.submitter.textContent = 'Ошибка! Попробуйте ещё раз'
+      evt.submitter.disabled = false
+    })
 })
-
-  return cardClone
-}
-
-
-export function addCard(data, cardsContainer) {
-  const name = data.name;
-  const link = data.link;
-  const card = createCard(name, link, data);
-
-  cardsContainer.prepend(card);
-}
-

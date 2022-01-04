@@ -1,25 +1,17 @@
-import { editProfilePopup } from "./profile.js"
-import { openPopup, addCardHandler, editProfileHandler, editAvatarHandler } from "./utils.js"
-
-const editButton = document.querySelector('.profile__edit-button')
-const addButton = document.querySelector('.profile__add-button')
-const avatarPicture = document.querySelector('.profile__overlay')
-export const addPlacePopup = document.querySelector('.popup_place-add')
-export const picturePopup = document.querySelector('.popup_place-picture')
-export const avatarPopup = document.querySelector('.popup_change-avatar')
-export const deleteCardPopup = document.querySelector('.popup_delete-card')
+import { editButton, addButton, avatarOverlay, editProfilePopup, addPlacePopup, avatarPopup } from "./constants"
+import { openPopup, editProfileHandler, editAvatarHandler, addCardHandler } from "./utils.js"
 
 // Обработчики
 
 editButton.addEventListener('click', () => {
   openPopup(editProfilePopup)
-});
+})
 
 addButton.addEventListener('click', () => {
   openPopup(addPlacePopup)
-});
+})
 
-avatarPicture.addEventListener('click', () => {
+avatarOverlay.addEventListener('click', () => {
   openPopup(avatarPopup)
 })
 

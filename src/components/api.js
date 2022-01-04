@@ -1,16 +1,10 @@
+import { config } from "./constants"
+
 function checkResponse(res) {
   if (res.ok) {
     return res.json()
   }
   return Promise.reject(`Ошибка: ${res.status}, ${res.statusMessage}`)
-}
-
-const config = {
-  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-5',
-  headers: {
-    authorization: 'bd868286-b540-4323-aa0c-2f039f089353',
-    'Content-Type': 'application/json'
-  }
 }
 
 export const getInitialCards = () => {
@@ -86,21 +80,3 @@ export const editUserAvatar = (userAvatar) => {
   })
   .then(checkResponse)
 }
-
-
-fetch(`${config.baseUrl}/users/me`, {
-  headers: config.headers
-})
-  .then(res => res.json())
-  .then((result) => {
-    console.log(result);
-  });
-
-fetch(`${config.baseUrl}/cards`, {
-    headers: config.headers
-  })
-    .then(res => res.json())
-    .then((result) => {
-      console.log(result);
-  });
-

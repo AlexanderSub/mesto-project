@@ -1,9 +1,4 @@
-export const validationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save-button',
-  disabledButtonClass: 'popup__save-button_disabled',
-}
+import { validationConfig } from "./constants";
 
 const showInputError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -63,7 +58,5 @@ export const enableValidation = ({formSelector, ...rest}) => {
     setEventListeners(formElement, rest)
   })
 }
-
-// enableValidation(validationConfig)
 
 

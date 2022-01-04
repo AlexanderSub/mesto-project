@@ -1,35 +1,25 @@
 import './index.css'
 
-import { createCard, cardsContainer } from '../components/card';
 import { getInitialCards, getUserData } from '../components/api';
-import { enableValidation, validationConfig } from '../components/validate'
-import { userName, userJob, userAvatar, profileName, profileJob } from '../components/profile';
+import { enableValidation } from '../components/validate'
+import { userName, userAbout, userAvatar, userNameInput, userAboutInput } from '../components/constants';
+import { renderServerCards } from '../components/card';
+import { validationConfig } from '../components/constants';
 
 export let userId
 
-// Добавление начальных карточек
-getInitialCards()
-  .then((result) => {
-    for (const card of result) {
-      cardsContainer.append(createCard(card))
-    }
+  Promise.all([getUserData(), getInitialCards()])
+  .then(([userData, cards])=>{
 
-  })
-  .catch((err) => {
-    console.log(err)
-  })
-
-enableValidation(validationConfig)
-
-getUserData()
-  .then((userData) => {
     userId = userData._id
     userName.textContent = userData.name
-    userJob.textContent = userData.about
+    userAbout.textContent = userData.about
     userAvatar.src = userData.avatar
-    profileName.value = userData.name
-    profileJob.value = userData.about
+    userNameInput.value = userData.name
+    userAboutInput.value = userData.about
+
+    renderServerCards(cards);
+
+    enableValidation(validationConfig);
   })
-  .catch((err) => {
-    console.log(err)
-  })
+  .catch(err=>console.log(err));
