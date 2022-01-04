@@ -1,26 +1,45 @@
-import { postCard, editUserData, editUserAvatar } from "./api"
-import { addCard, placeNameInput, placePictureInput, cardsContainer, addPlaceForm } from "./card"
-import { userName, userJob, profileName, profileJob, editProfileForm, editAvatarForm, userAvatarInput, userAvatar, editProfilePopup } from "./profile"
-import { addPlacePopup, avatarPopup } from "./modal"
-import { validationConfig } from "./validate"
+import {
+  postCard,
+  editUserData,
+  editUserAvatar
+} from "./api"
+
+import {
+  renderNewCard
+} from "./card"
+
+import {
+  popups,
+  userName,
+  userAbout,
+  userNameInput,
+  userAboutInput,
+  editAvatarForm,
+  userAvatarInput,
+  userAvatar,
+  editProfilePopup,
+  avatarPopup,
+  addPlacePopup,
+  addPlaceForm,
+  placeNameInput,
+  placePictureInput
+} from "./constants"
 
 // Функционал открытия модальных окон и их закрытия при клике на крестик, оверлэй или нажатие на клавишу Escape
 
-const popups = document.querySelectorAll('.popup')
-
 // Открытие и закрытие модальных окон
-export function openPopup(popup) {
+export const openPopup = (popup) => {
   popup.classList.add('popup_opened')
   document.addEventListener('keydown', closePopupByClickOnEscape)
 }
 
-export function closePopup(popup) {
+export const closePopup = (popup) => {
   popup.classList.remove('popup_opened')
   document.removeEventListener('keydown', closePopupByClickOnEscape)
 }
 
 // Закрытие модальных окон при нажатии на Escape
-function closePopupByClickOnEscape(event) {
+const closePopupByClickOnEscape = (event) => {
   if (event.code === 'Escape') {
     const activePopupElement = document.querySelector('.popup_opened')
 
@@ -31,7 +50,7 @@ function closePopupByClickOnEscape(event) {
 }
 
 // Закрытие модальных окон при клике на оверлэй
-function closePopupByClickOnOverlay(event) {
+const closePopupByClickOnOverlay = (event) => {
   if (event.target === event.currentTarget) {
     closePopup(event.target)
   }
@@ -49,71 +68,70 @@ popups.forEach((popup) => {
   })
 })
 
+// Добавление карточек
 
+export const addCardHandler = (evt) => {
+  evt.submitter.textContent = 'Сохранение...'
+  evt.submitter.disabled = true
 
-
-export function addCardHandler(evt) {
-  evt.submitter.textContent = 'Сохранение...';
-  evt.submitter.disabled = true;
-
-  postCard(placeNameInput.value, placePictureInput.value)
-    .then((card) => {
-      addCard(card, cardsContainer);
-      evt.submitter.classList.add(validationConfig.disabledButtonClass);
-      evt.submitter.textContent = 'Создать';
-      closePopup(addPlacePopup);
-      addPlaceForm.reset();
+  const nameCard = placeNameInput.value
+  const linkCard = placePictureInput.value
+  postCard(nameCard, linkCard)
+    .then(card => {
+      renderNewCard([card])
+      closePopup(addPlacePopup)
+      addPlaceForm.reset()
     })
     .catch(err => {
-      console.log(err);
-      evt.submitter.textContent = 'Ошибка! Попробуйте ещё раз';
-      evt.submitter.disabled = false;
+      console.log(err)
+      evt.submitter.textContent = 'Ошибка! Попробуйте ещё раз'
+      evt.submitter.disabled = false
     })
+    .finally(() => {
+      evt.submitter.textContent = 'Сохранить'
+      evt.submitter.classList.add('popup__save-button_disabled')
+      evt.submitter.disabled = true
+    });
 }
 
-export function editProfileHandler(evt) {
-  evt.submitter.textContent = 'Сохранение...';
-  evt.submitter.disabled = true;
+// Редактирование профиля
 
-  editUserData(profileName.value, profileJob.value)
+export const editProfileHandler = (evt) => {
+  evt.submitter.textContent = 'Сохранение...'
+  evt.submitter.disabled = true
+
+  editUserData(userNameInput.value, userAboutInput.value)
     .then(userData => {
-      userName.textContent = userData.name,
-      userJob.textContent = userData.about,
-      evt.submitter.classList.add(validationConfig.disabledButtonClass);
-      evt.submitter.textContent = 'Создать';
-      closePopup(editProfilePopup);
-      editProfileForm.reset();
+      userName.textContent = userData.name
+      userAbout.textContent = userData.about
+      closePopup(editProfilePopup)
     })
     .catch(err => {
-      console.log(err);
-      evt.submitter.textContent = 'Ошибка! Попробуйте ещё раз';
-      evt.submitter.disabled = false;
+      console.log(err)
+      evt.submitter.textContent = 'Ошибка! Попробуйте ещё раз'
+      evt.submitter.disabled = false
     })
-
+    .finally(() => {
+      evt.submitter.textContent = 'Сохранить'
+      evt.submitter.disabled = false
+    })
 }
 
+// Редактирование аватара
 
-
-export function editAvatarHandler(evt) {
-  evt.submitter.textContent = 'Сохранение...';
-  evt.submitter.disabled = true;
+export const editAvatarHandler = (evt) => {
+  evt.submitter.textContent = 'Сохранение...'
+  evt.submitter.disabled = true
 
   editUserAvatar(userAvatarInput.value)
     .then(userData => {
-      userAvatar.src = userData.avatar,
-      evt.submitter.classList.add(validationConfig.disabledButtonClass);
-      evt.submitter.textContent = 'Создать';
-      closePopup(avatarPopup);
-      editAvatarForm.reset();
+      userAvatar.src = userData.avatar
+      closePopup(avatarPopup)
+      editAvatarForm.reset()
     })
     .catch(err => {
-      console.log(err);
-      evt.submitter.textContent = 'Ошибка! Попробуйте ещё раз';
-      evt.submitter.disabled = false;
+      console.log(err)
+      evt.submitter.textContent = 'Ошибка! Попробуйте ещё раз'
+      evt.submitter.disabled = false
     })
-}
-
-
-export function hasLike(card) {
-  return card.likes.some(obj => obj._id == userId)
 }
