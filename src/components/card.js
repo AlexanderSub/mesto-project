@@ -98,7 +98,7 @@ const toggleLike = (card, likeButton, cardId) => {
   handleLike(cardId)
     .then(cardResponse => {
       const cardData = getCardData(cardResponse)
-      updateLikeStatus(likeButton, cardData.liked)
+      updateLikeStatus(likeButton, cardData.likedByMe)
       countLikes(card, cardData.likeCounter)
     })
     .catch(err => console.log(err))
@@ -118,12 +118,14 @@ deleteCardPopup.addEventListener('submit', (evt) => {
     .then(() => {
       removeCard(currentCard)
       closePopup(deleteCardPopup)
-      evt.submitter.textContent = 'Да'
-      evt.submitter.disabled = false
     })
     .catch(err => {
       console.log(err)
       evt.submitter.textContent = 'Ошибка! Попробуйте ещё раз'
+      evt.submitter.disabled = false
+    })
+    .finally(() => {
+      evt.submitter.textContent = 'Да'
       evt.submitter.disabled = false
     })
 })

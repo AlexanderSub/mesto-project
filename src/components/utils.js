@@ -81,16 +81,15 @@ export const addCardHandler = (evt) => {
       renderNewCard([card])
       closePopup(addPlacePopup)
       addPlaceForm.reset()
+      evt.submitter.classList.add('popup__save-button_disabled')
+      evt.submitter.disabled = true
     })
     .catch(err => {
       console.log(err)
-      evt.submitter.textContent = 'Ошибка! Попробуйте ещё раз'
       evt.submitter.disabled = false
     })
     .finally(() => {
       evt.submitter.textContent = 'Сохранить'
-      evt.submitter.classList.add('popup__save-button_disabled')
-      evt.submitter.disabled = true
     });
 }
 
@@ -108,7 +107,6 @@ export const editProfileHandler = (evt) => {
     })
     .catch(err => {
       console.log(err)
-      evt.submitter.textContent = 'Ошибка! Попробуйте ещё раз'
       evt.submitter.disabled = false
     })
     .finally(() => {
@@ -131,7 +129,11 @@ export const editAvatarHandler = (evt) => {
     })
     .catch(err => {
       console.log(err)
-      evt.submitter.textContent = 'Ошибка! Попробуйте ещё раз'
       evt.submitter.disabled = false
+    })
+    .finally(() => {
+      evt.submitter.textContent = 'Сохранить'
+      evt.submitter.disabled = true
+      evt.submitter.classList.add('popup__save-button_disabled')
     })
 }
