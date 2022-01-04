@@ -121,8 +121,6 @@ deleteCardPopup.addEventListener('submit', (evt) => {
     })
     .catch(err => {
       console.log(err)
-      evt.submitter.textContent = 'Ошибка! Попробуйте ещё раз'
-      evt.submitter.disabled = false
     })
     .finally(() => {
       evt.submitter.textContent = 'Да'

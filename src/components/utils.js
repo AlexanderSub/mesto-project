@@ -126,6 +126,8 @@ export const editAvatarHandler = (evt) => {
       userAvatar.src = userData.avatar
       closePopup(avatarPopup)
       editAvatarForm.reset()
+      evt.submitter.disabled = true
+      evt.submitter.classList.add('popup__save-button_disabled')
     })
     .catch(err => {
       console.log(err)
@@ -133,7 +135,5 @@ export const editAvatarHandler = (evt) => {
     })
     .finally(() => {
       evt.submitter.textContent = 'Сохранить'
-      evt.submitter.disabled = true
-      evt.submitter.classList.add('popup__save-button_disabled')
     })
 }
