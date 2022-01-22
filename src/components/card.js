@@ -1,7 +1,7 @@
 import { picturePopup, deleteCardPopup, deleteCardForm, popupImage, popupImageDescription, cardsContainer, cardTemplate } from "./constants"
 import { openPopup, closePopup } from "./utils"
 import { userId } from "../pages/index"
-import { deleteCard, putLike, deleteLike } from "./api"
+import { deleteCard, putLike, deleteLike } from "./Api"
 
 const getCardData = (card) => {
   const cardData = {

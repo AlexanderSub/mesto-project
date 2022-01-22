@@ -2,11 +2,11 @@ import {
   postCard,
   editUserData,
   editUserAvatar
-} from "./api"
+} from "./Api"
 
 import {
   renderNewCard
-} from "./card"
+} from "./Card"
 
 import {
   popups,

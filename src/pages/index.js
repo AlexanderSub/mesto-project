@@ -1,9 +1,9 @@
 import './index.css'
 
-import { getInitialCards, getUserData } from '../components/api';
-import { enableValidation } from '../components/validate'
+import { getInitialCards, getUserData } from '../components/Api';
+import { enableValidation } from '../components/FormValidator'
 import { userName, userAbout, userAvatar, userNameInput, userAboutInput } from '../components/constants';
-import { renderServerCards } from '../components/card';
+import { renderServerCards } from '../components/Card';
 import { validationConfig } from '../components/constants';
 
 export let userId
