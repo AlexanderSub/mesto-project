@@ -1,5 +1,5 @@
-import { editButton, addButton, avatarOverlay, editProfilePopup, addPlacePopup, avatarPopup } from "./constants"
-import { openPopup, editProfileHandler, editAvatarHandler, addCardHandler } from "./utils.js"
+import { editButton, addButton, avatarOverlay, editProfilePopup, addPlacePopup, avatarPopup } from "../utils/constants"
+import { openPopup, editProfileHandler, editAvatarHandler, addCardHandler } from "../utils/utils.js"
 
 // Обработчики
 

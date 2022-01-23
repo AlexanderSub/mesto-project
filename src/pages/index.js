@@ -2,9 +2,9 @@ import './index.css'
 
 import { getInitialCards, getUserData } from '../components/Api';
 import { enableValidation } from '../components/FormValidator'
-import { userName, userAbout, userAvatar, userNameInput, userAboutInput } from '../components/constants';
+import { userName, userAbout, userAvatar, userNameInput, userAboutInput } from '../utils/constants';
 import { renderServerCards } from '../components/Card';
-import { validationConfig } from '../components/constants';
+import { validationConfig } from '../utils/constants';
 
 export let userId
 

@@ -1,5 +1,5 @@
-import { picturePopup, deleteCardPopup, deleteCardForm, popupImage, popupImageDescription, cardsContainer, cardTemplate } from "./constants"
-import { openPopup, closePopup } from "./utils"
+import { picturePopup, deleteCardPopup, deleteCardForm, popupImage, popupImageDescription, cardsContainer, cardTemplate } from "../utils/constants"
+import { openPopup, closePopup } from "../utils/utils"
 import { userId } from "../pages/index"
 import { deleteCard, putLike, deleteLike } from "./Api"
 
