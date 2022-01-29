@@ -1,6 +1,6 @@
 import './index.css'
 
-import { getInitialCards, getUserData } from '../components/Api';
+import { api } from '../components/Api';
 import { enableValidation } from '../components/FormValidator'
 import { userName, userAbout, userAvatar, userNameInput, userAboutInput } from '../utils/constants';
 import { renderServerCards } from '../components/Card';
@@ -8,7 +8,7 @@ import { validationConfig } from '../utils/constants';
 
 export let userId
 
-  Promise.all([getUserData(), getInitialCards()])
+  Promise.all([api.getUserData(), api.getInitialCards()])
   .then(([userData, cards])=>{
 
     userId = userData._id

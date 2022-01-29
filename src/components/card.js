@@ -1,7 +1,8 @@
 import { picturePopup, deleteCardPopup, deleteCardForm, popupImage, popupImageDescription, cardsContainer, cardTemplate } from "../utils/constants"
 import { openPopup, closePopup } from "../utils/utils"
 import { userId } from "../pages/index"
-import { deleteCard, putLike, deleteLike } from "./Api"
+import { api } from "./Api"
+
 
 const getCardData = (card) => {
   const cardData = {
@@ -93,7 +94,7 @@ const updateLikeStatus = (likeButton, likedByMe = false) => {
 
 const toggleLike = (card, likeButton, cardId) => {
 
-  const handleLike = likeButton.classList.contains('card__like_active') ? deleteLike : putLike
+  const handleLike = likeButton.classList.contains('card__like_active') ? api.deleteLike : api.putLike
 
   handleLike(cardId)
     .then(cardResponse => {
@@ -114,7 +115,7 @@ deleteCardPopup.addEventListener('submit', (evt) => {
   evt.submitter.textContent = 'Удаление...'
   evt.submitter.disabled = true
   const currentCard = evt.target.currentCard
-  deleteCard(evt.target.cardId)
+  api.deleteCard(evt.target.cardId)
     .then(() => {
       removeCard(currentCard)
       closePopup(deleteCardPopup)
@@ -127,3 +128,22 @@ deleteCardPopup.addEventListener('submit', (evt) => {
       evt.submitter.disabled = false
     })
 })
+
+// export default class Card {
+//   constructor(data) {
+//     this.name = data.name
+//     this.link = data.link
+//     this._id = data._id
+//     this.owner = data.owner
+//   }
+
+//   _getElement() {
+//     const cardElement = document
+//     .querySelector('.card__template')
+//     .content
+//     .querySelector('.card')
+//     .cloneNode(true)
+
+//     return cardElement
+//   }
+// }

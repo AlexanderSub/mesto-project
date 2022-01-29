@@ -9,12 +9,12 @@ export default class Section {
     this._container.append(card)
   }
 
-  clear() {
-    this._container.innerHTML = ''
-  }
+  // clear() {
+  //   this._container.innerHTML = ''
+  // }
 
   renderCards() {
-    this.clear()
+    // this.clear()
 
     this._cardsArray.forEach(card => {
       this._renderer(card)

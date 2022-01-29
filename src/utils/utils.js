@@ -1,8 +1,4 @@
-import {
-  postCard,
-  editUserData,
-  editUserAvatar
-} from "../components/Api"
+import { api } from "../components/Api"
 
 import {
   renderNewCard
@@ -76,7 +72,7 @@ export const addCardHandler = (evt) => {
 
   const nameCard = placeNameInput.value
   const linkCard = placePictureInput.value
-  postCard(nameCard, linkCard)
+  api.postCard(nameCard, linkCard)
     .then(card => {
       renderNewCard([card])
       closePopup(addPlacePopup)
@@ -99,7 +95,7 @@ export const editProfileHandler = (evt) => {
   evt.submitter.textContent = 'Сохранение...'
   evt.submitter.disabled = true
 
-  editUserData(userNameInput.value, userAboutInput.value)
+  api.editUserData(userNameInput.value, userAboutInput.value)
     .then(userData => {
       userName.textContent = userData.name
       userAbout.textContent = userData.about
@@ -121,7 +117,7 @@ export const editAvatarHandler = (evt) => {
   evt.submitter.textContent = 'Сохранение...'
   evt.submitter.disabled = true
 
-  editUserAvatar(userAvatarInput.value)
+  api.editUserAvatar(userAvatarInput.value)
     .then(userData => {
       userAvatar.src = userData.avatar
       closePopup(avatarPopup)
