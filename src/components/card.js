@@ -1,8 +1,10 @@
-import { picturePopup, deleteCardPopup, deleteCardForm, popupImage, popupImageDescription, cardsContainer, cardTemplate } from "../utils/constants"
+import { deleteCardPopup, deleteCardForm, cardsContainer, cardTemplate } from "../utils/constants"
 import { openPopup, closePopup } from "../utils/utils"
 import { userId } from "../pages/index"
 import { api } from "./Api"
+import PopupWithImage from "./PopupWithImage"
 
+const picturePopup = new PopupWithImage('.popup_place-picture')
 
 const getCardData = (card) => {
   const cardData = {
@@ -28,10 +30,7 @@ export const createCard = ({ cardId = '', link = '', name = '', likeCounter = 0,
 
   card.querySelector('.card__title').textContent = name
   cardImage.addEventListener('click', (evt) => {
-    popupImage.src = evt.target.src
-    popupImage.alt = evt.target.alt
-    popupImageDescription.textContent = evt.target.alt
-    openPopup(picturePopup)
+    picturePopup._openPopup(link, name)
   })
 
   // Кнопка удаления
@@ -128,22 +127,3 @@ deleteCardPopup.addEventListener('submit', (evt) => {
       evt.submitter.disabled = false
     })
 })
-
-// export default class Card {
-//   constructor(data) {
-//     this.name = data.name
-//     this.link = data.link
-//     this._id = data._id
-//     this.owner = data.owner
-//   }
-
-//   _getElement() {
-//     const cardElement = document
-//     .querySelector('.card__template')
-//     .content
-//     .querySelector('.card')
-//     .cloneNode(true)
-
-//     return cardElement
-//   }
-// }

@@ -26,24 +26,24 @@ import {
 // Открытие и закрытие модальных окон
 export const openPopup = (popup) => {
   popup.classList.add('popup_opened')
-  document.addEventListener('keydown', closePopupByClickOnEscape)
+  // document.addEventListener('keydown', closePopupByClickOnEscape)
 }
 
 export const closePopup = (popup) => {
   popup.classList.remove('popup_opened')
-  document.removeEventListener('keydown', closePopupByClickOnEscape)
+  // document.removeEventListener('keydown', closePopupByClickOnEscape)
 }
 
 // Закрытие модальных окон при нажатии на Escape
-const closePopupByClickOnEscape = (event) => {
-  if (event.code === 'Escape') {
-    const activePopupElement = document.querySelector('.popup_opened')
+// const closePopupByClickOnEscape = (event) => {
+//   if (event.code === 'Escape') {
+//     const activePopupElement = document.querySelector('.popup_opened')
 
-    if (activePopupElement) {
-      closePopup(activePopupElement)
-    }
-  }
-}
+//     if (activePopupElement) {
+//       closePopup(activePopupElement)
+//     }
+//   }
+// }
 
 // Закрытие модальных окон при клике на оверлэй
 const closePopupByClickOnOverlay = (event) => {

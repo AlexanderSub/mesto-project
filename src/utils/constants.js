@@ -23,8 +23,6 @@ export const editProfileForm = document.forms.profileEdit
 export const addPlacePopup = document.querySelector('.popup_place-add')
 export const addPlaceForm = addPlacePopup.querySelector('.popup__form')
 
-export const picturePopup = document.querySelector('.popup_place-picture')
-
 export const deleteCardPopup = document.querySelector('.popup_delete-card')
 export const deleteCardForm = document.querySelector('.popup_delete-card-form')
 
@@ -45,9 +43,6 @@ export const avatarOverlay = document.querySelector('.profile__overlay')
 export const addButton = document.querySelector('.profile__add-button')
 export const placeNameInput = addPlacePopup.querySelector('.popup__input_place')
 export const placePictureInput = addPlacePopup.querySelector('.popup__input_pic')
-
-export const popupImage = picturePopup.querySelector('.popup__image')
-export const popupImageDescription = picturePopup.querySelector('.popup__image-description')
 
 export const cardsContainer = document.querySelector('.cards')
 export const cardTemplate = document.querySelector('.card__template').content.querySelector('.card')
