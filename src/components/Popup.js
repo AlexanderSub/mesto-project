@@ -11,15 +11,15 @@ addButton.addEventListener('click', () => {
   openPopup(addPlacePopup)
 })
 
-avatarOverlay.addEventListener('click', () => {
-  openPopup(avatarPopup)
-})
+// avatarOverlay.addEventListener('click', () => {
+//   openPopup(avatarPopup)
+// })
 
 editProfilePopup.addEventListener('submit', editProfileHandler)
 
 addPlacePopup.addEventListener('submit', addCardHandler)
 
-avatarPopup.addEventListener('submit', editAvatarHandler)
+// avatarPopup.addEventListener('submit', editAvatarHandler)
 
 export default class Popup {
   constructor(popupType) {

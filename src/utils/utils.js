@@ -111,25 +111,3 @@ export const editProfileHandler = (evt) => {
     })
 }
 
-// Редактирование аватара
-
-export const editAvatarHandler = (evt) => {
-  evt.submitter.textContent = 'Сохранение...'
-  evt.submitter.disabled = true
-
-  api.editUserAvatar(userAvatarInput.value)
-    .then(userData => {
-      userAvatar.src = userData.avatar
-      closePopup(avatarPopup)
-      editAvatarForm.reset()
-      evt.submitter.disabled = true
-      evt.submitter.classList.add('popup__save-button_disabled')
-    })
-    .catch(err => {
-      console.log(err)
-      evt.submitter.disabled = false
-    })
-    .finally(() => {
-      evt.submitter.textContent = 'Сохранить'
-    })
-}

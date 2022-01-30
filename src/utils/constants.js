@@ -26,7 +26,7 @@ export const addPlaceForm = addPlacePopup.querySelector('.popup__form')
 export const deleteCardPopup = document.querySelector('.popup_delete-card')
 export const deleteCardForm = document.querySelector('.popup_delete-card-form')
 
-export const avatarPopup = document.querySelector('.popup_change-avatar')
+// export const avatarPopup = document.querySelector('.popup_change-avatar')
 export const editAvatarForm = document.forms.editAvatar
 
 export const editButton = document.querySelector('.profile__edit-button')
