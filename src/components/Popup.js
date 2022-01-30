@@ -1,25 +1,19 @@
-import { editButton, addButton, avatarOverlay, editProfilePopup, addPlacePopup, avatarPopup } from "../utils/constants"
-import { openPopup, editProfileHandler, editAvatarHandler, addCardHandler } from "../utils/utils.js"
+import { editButton, addButton, editProfilePopup, addPlacePopup } from "../utils/constants"
+import { openPopup, editProfileHandler, addCardHandler } from "../utils/utils.js"
 
 // Обработчики
 
-editButton.addEventListener('click', () => {
-  openPopup(editProfilePopup)
-})
+// editButton.addEventListener('click', () => {
+//   openPopup(editProfilePopup)
+// })
 
 addButton.addEventListener('click', () => {
   openPopup(addPlacePopup)
 })
 
-// avatarOverlay.addEventListener('click', () => {
-//   openPopup(avatarPopup)
-// })
-
-editProfilePopup.addEventListener('submit', editProfileHandler)
+// editProfilePopup.addEventListener('submit', editProfileHandler)
 
 addPlacePopup.addEventListener('submit', addCardHandler)
-
-// avatarPopup.addEventListener('submit', editAvatarHandler)
 
 export default class Popup {
   constructor(popupType) {

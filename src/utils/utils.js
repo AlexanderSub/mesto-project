@@ -1,27 +1,14 @@
 import { api } from "../components/Api"
 
-import {
-  renderNewCard
-} from "../components/Card"
+import { renderNewCard } from "../components/Card"
 
 import {
   popups,
-  userName,
-  userAbout,
-  userNameInput,
-  userAboutInput,
-  editAvatarForm,
-  userAvatarInput,
-  userAvatar,
-  editProfilePopup,
-  avatarPopup,
   addPlacePopup,
   addPlaceForm,
   placeNameInput,
   placePictureInput
 } from "./constants"
-
-// Функционал открытия модальных окон и их закрытия при клике на крестик, оверлэй или нажатие на клавишу Escape
 
 // Открытие и закрытие модальных окон
 export const openPopup = (popup) => {
@@ -44,13 +31,6 @@ export const closePopup = (popup) => {
 //     }
 //   }
 // }
-
-// Закрытие модальных окон при клике на оверлэй
-const closePopupByClickOnOverlay = (event) => {
-  if (event.target === event.currentTarget) {
-    closePopup(event.target)
-  }
-}
 
 // Закрытие модальных окон при клике на крестик
 popups.forEach((popup) => {
@@ -87,27 +67,5 @@ export const addCardHandler = (evt) => {
     .finally(() => {
       evt.submitter.textContent = 'Сохранить'
     });
-}
-
-// Редактирование профиля
-
-export const editProfileHandler = (evt) => {
-  evt.submitter.textContent = 'Сохранение...'
-  evt.submitter.disabled = true
-
-  api.editUserData(userNameInput.value, userAboutInput.value)
-    .then(userData => {
-      userName.textContent = userData.name
-      userAbout.textContent = userData.about
-      closePopup(editProfilePopup)
-    })
-    .catch(err => {
-      console.log(err)
-      evt.submitter.disabled = false
-    })
-    .finally(() => {
-      evt.submitter.textContent = 'Сохранить'
-      evt.submitter.disabled = false
-    })
 }
 

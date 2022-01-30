@@ -5,19 +5,19 @@ export default class UserInfo {
     this._userAvatarElement = userAvatarSelector
   }
 
-  _setUserInfo({newName, newAbout}) {
-    this._userNameElement.textcontent = newName
-    this._userAboutElement.textcontent = newAbout
+  _setUserInfo({name, about}) {
+    this._userNameElement.textContent = name
+    this._userAboutElement.textContent = about
   }
 
-  _setUserAvatar({newAvatar}) {
-    this._userAvatarElement.src = newAvatar
+  _setUserAvatar({avatar}) {
+    this._userAvatarElement.src = avatar
   }
 
   _getUserInfo() {
     return {
-      userName: this._userNameElement.textcontent,
-      userAbout: this._userAboutElement.textcontent,
+      userName: this._userNameElement.textContent,
+      userAbout: this._userAboutElement.textContent,
       userAvatar: this._userAvatarElement.src
     }
   }
