@@ -17,16 +17,14 @@ export const validationConfig = {
 
 export const popups = document.querySelectorAll('.popup')
 
-export const editProfilePopup = document.querySelector('.popup_profile-edit')
 export const editProfileForm = document.forms.profileEdit
+export const editAvatarForm = document.forms.editAvatar
 
 export const addPlacePopup = document.querySelector('.popup_place-add')
 export const addPlaceForm = addPlacePopup.querySelector('.popup__form')
 
 export const deleteCardPopup = document.querySelector('.popup_delete-card')
 export const deleteCardForm = document.querySelector('.popup_delete-card-form')
-
-export const editAvatarForm = document.forms.editAvatar
 
 export const editButton = document.querySelector('.profile__edit-button')
 

@@ -1,17 +1,11 @@
-import { editButton, addButton, editProfilePopup, addPlacePopup } from "../utils/constants"
-import { openPopup, editProfileHandler, addCardHandler } from "../utils/utils.js"
+import { addButton, addPlacePopup } from "../utils/constants"
+import { openPopup, addCardHandler } from "../utils/utils.js"
 
 // Обработчики
-
-// editButton.addEventListener('click', () => {
-//   openPopup(editProfilePopup)
-// })
 
 addButton.addEventListener('click', () => {
   openPopup(addPlacePopup)
 })
-
-// editProfilePopup.addEventListener('submit', editProfileHandler)
 
 addPlacePopup.addEventListener('submit', addCardHandler)
 
