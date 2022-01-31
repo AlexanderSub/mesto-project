@@ -2,8 +2,8 @@ import './index.css'
 
 import { api } from '../components/Api';
 import { enableValidation } from '../components/FormValidator'
-import { userName, userAbout, userAvatar, userNameInput, userAboutInput, avatarOverlay, editButton } from '../utils/constants';
-import { renderServerCards } from '../components/Card';
+import { userName, userAbout, userAvatar, userNameInput, userAboutInput, avatarOverlay, editButton, addButton } from '../utils/constants';
+import { renderServerCards, renderNewCard } from '../components/Card';
 import { validationConfig } from '../utils/constants';
 import PopupWithForm from '../components/PopupWithForm';
 import UserInfo from '../components/UserInfo';
@@ -64,6 +64,34 @@ avatarPopup._setEventListeners()
 
 avatarOverlay.addEventListener('click', () => {
   avatarPopup._openPopup()
+})
+
+// Добавление карточек
+
+const addPlacePopup = new PopupWithForm({
+  popupType: '.popup_place-add',
+  handleFormSubmit: (formData) => {
+    api.postCard(formData.place_name, formData.place_picture)
+    .then(card => {
+      renderNewCard([card])
+      addPlacePopup._closePopup()
+      addPlacePopup._resetForm()
+      addPlacePopup._submitButton.disabled = true
+      addPlacePopup._submitButton.classList.add('popup__save-button_disabled')
+    })
+    .catch(err => {
+      console.log(err)
+    })
+    .finally(() => {
+      addPlacePopup._setDefaultText()
+    });
+  }
+})
+
+addPlacePopup._setEventListeners()
+
+addButton.addEventListener('click', () => {
+  addPlacePopup._openPopup()
 })
 
 

@@ -29,7 +29,7 @@ export const createCard = ({ cardId = '', link = '', name = '', likeCounter = 0,
   cardImage.alt = name
 
   card.querySelector('.card__title').textContent = name
-  cardImage.addEventListener('click', (evt) => {
+  cardImage.addEventListener('click', () => {
     picturePopup._openPopup(link, name)
   })
 

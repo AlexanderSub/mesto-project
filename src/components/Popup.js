@@ -1,14 +1,3 @@
-import { addButton, addPlacePopup } from "../utils/constants"
-import { openPopup, addCardHandler } from "../utils/utils.js"
-
-// Обработчики
-
-addButton.addEventListener('click', () => {
-  openPopup(addPlacePopup)
-})
-
-addPlacePopup.addEventListener('submit', addCardHandler)
-
 export default class Popup {
   constructor(popupType) {
     this._popup = document.querySelector(popupType)

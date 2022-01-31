@@ -1,14 +1,4 @@
-import { api } from "../components/Api"
-
-import { renderNewCard } from "../components/Card"
-
-import {
-  popups,
-  addPlacePopup,
-  addPlaceForm,
-  placeNameInput,
-  placePictureInput
-} from "./constants"
+import { popups } from "./constants"
 
 // Открытие и закрытие модальных окон
 export const openPopup = (popup) => {
@@ -43,29 +33,4 @@ popups.forEach((popup) => {
     }
   })
 })
-
-// Добавление карточек
-
-export const addCardHandler = (evt) => {
-  evt.submitter.textContent = 'Сохранение...'
-  evt.submitter.disabled = true
-
-  const nameCard = placeNameInput.value
-  const linkCard = placePictureInput.value
-  api.postCard(nameCard, linkCard)
-    .then(card => {
-      renderNewCard([card])
-      closePopup(addPlacePopup)
-      addPlaceForm.reset()
-      evt.submitter.classList.add('popup__save-button_disabled')
-      evt.submitter.disabled = true
-    })
-    .catch(err => {
-      console.log(err)
-      evt.submitter.disabled = false
-    })
-    .finally(() => {
-      evt.submitter.textContent = 'Сохранить'
-    });
-}
 
