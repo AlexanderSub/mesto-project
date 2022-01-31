@@ -37,8 +37,6 @@ export const userAvatar = document.querySelector('.profile__avatar')
 export const avatarOverlay = document.querySelector('.profile__overlay')
 
 export const addButton = document.querySelector('.profile__add-button')
-export const placeNameInput = addPlacePopup.querySelector('.popup__input_place')
-export const placePictureInput = addPlacePopup.querySelector('.popup__input_pic')
 
 export const cardsContainer = document.querySelector('.cards')
 export const cardTemplate = document.querySelector('.card__template').content.querySelector('.card')

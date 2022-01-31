@@ -31,6 +31,7 @@ export const createCard = ({ cardId = '', link = '', name = '', likeCounter = 0,
   card.querySelector('.card__title').textContent = name
   cardImage.addEventListener('click', () => {
     picturePopup._openPopup(link, name)
+    picturePopup._setEventListeners()
   })
 
   // Кнопка удаления

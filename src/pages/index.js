@@ -2,7 +2,17 @@ import './index.css'
 
 import { api } from '../components/Api';
 import { enableValidation } from '../components/FormValidator'
-import { userName, userAbout, userAvatar, userNameInput, userAboutInput, avatarOverlay, editButton, addButton } from '../utils/constants';
+import {
+  userName,
+  userAbout,
+  userAvatar,
+  userNameInput,
+  userAboutInput,
+  avatarOverlay,
+  editButton,
+  addButton
+} from '../utils/constants';
+
 import { renderServerCards, renderNewCard } from '../components/Card';
 import { validationConfig } from '../utils/constants';
 import PopupWithForm from '../components/PopupWithForm';
