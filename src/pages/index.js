@@ -1,7 +1,7 @@
 import './index.css'
 
 import {api} from '../components/Api';
-import {enableValidation} from '../components/FormValidator'
+import FormValidator from "../components/FormValidator";
 import {
   userName,
   userAbout,
@@ -48,6 +48,8 @@ editProfilePopup._setEventListeners()
 editButton.addEventListener('click', () => {
   editProfilePopup._openPopup()
 })
+const editProfileFormValidator = new FormValidator({data: validationConfig, form: editProfilePopup._form});
+editProfileFormValidator.enableValidation();
 
 //Блок редактирования аватара
 const avatarPopup = new PopupWithForm({
@@ -75,6 +77,8 @@ avatarPopup._setEventListeners()
 avatarOverlay.addEventListener('click', () => {
   avatarPopup._openPopup()
 })
+const avatarFormValidator = new FormValidator({data: validationConfig, form: avatarPopup._form});
+avatarFormValidator.enableValidation();
 
 // Добавление карточек
 
@@ -104,6 +108,8 @@ addButton.addEventListener('click', () => {
   addPlacePopup._openPopup()
 })
 
+const addPlaceFormValidator = new FormValidator({data: validationConfig, form: addPlacePopup._form});
+addPlaceFormValidator.enableValidation();
 
 Promise.all([api.getUserData(), api.getInitialCards()])
   .then(([userData, cards]) => {
@@ -115,6 +121,5 @@ Promise.all([api.getUserData(), api.getInitialCards()])
     userNameInput.value = userData.name
     userAboutInput.value = userData.about
     createCards(cards);
-    enableValidation(validationConfig);
   })
   .catch(err => console.log(err));
