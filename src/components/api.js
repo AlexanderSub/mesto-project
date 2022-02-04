@@ -1,4 +1,4 @@
-import { config } from "../utils/constants"
+import {config} from "../utils/constants"
 
 export default class Api {
   constructor({baseUrl, headers}) {
@@ -17,14 +17,14 @@ export default class Api {
     return fetch(`${this.baseUrl}/cards`, {
       headers: this.headers
     })
-    .then(this._checkResponse)
+      .then(this._checkResponse)
   }
 
   getUserData() {
     return fetch(`${this.baseUrl}/users/me`, {
       headers: this.headers
     })
-    .then(this._checkResponse)
+      .then(this._checkResponse)
   }
 
   postCard(name, link) {
@@ -36,15 +36,15 @@ export default class Api {
         link: link
       })
     })
-    .then(this._checkResponse)
+      .then(this._checkResponse)
   }
 
   deleteCard(cardId) {
     return fetch(`${this.baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: this.headers,
+      headers: this.headers
     })
-    .then(this._checkResponse)
+      .then(this._checkResponse)
   }
 
   putLike(cardId) {
@@ -52,7 +52,7 @@ export default class Api {
       method: 'PUT',
       headers: this.headers
     })
-    .then(this._checkResponse)
+      .then(this._checkResponse)
   }
 
   deleteLike(cardId) {
@@ -60,11 +60,11 @@ export default class Api {
       method: 'DELETE',
       headers: this.headers
     })
-    .then(this._checkResponse)
+      .then(this._checkResponse)
   }
 
 
-  editUserData (userName, userAbout) {
+  editUserData(userName, userAbout) {
     return fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this.headers,
@@ -73,7 +73,7 @@ export default class Api {
         about: userAbout
       })
     })
-    .then(this._checkResponse)
+      .then(this._checkResponse)
   }
 
   editUserAvatar(userAvatar) {
@@ -84,7 +84,7 @@ export default class Api {
         avatar: userAvatar
       })
     })
-    .then(this._checkResponse)
+      .then(this._checkResponse)
   }
 }
 
