@@ -3,7 +3,7 @@
 // import { userId } from "../pages/index"
 // import { api } from "./Api"
 // import PopupWithImage from "./PopupWithImage"
-
+import {userId} from "../pages";
 // const picturePopup = new PopupWithImage('.popup_place-picture')
 //
 // const getCardData = (card) => {
@@ -139,6 +139,10 @@ export default class Card {
     this._handleOpenPopup = handleOpenPopup;
   }
 
+  _likeCard() {
+
+  }
+
   _setEventListeners() {
     this._element.querySelector('.card__image')
       .addEventListener('click', () => {
@@ -166,6 +170,13 @@ export default class Card {
     this._element.querySelector('.card__image').alt = this.name;
     this._element.querySelector('.card__image').src = this.link;
     this._element.querySelector('.card__like-counter').textContent = this.likes.length;
+    if (this.likes.some((like) => { return like._id === userId })) {
+      this._element.querySelector('.card__like').classList.add('card__like_active');
+      this._element.querySelector('.card__like').classList.remove('card__like_disabled');
+    } else {
+      this._element.querySelector('.card__like').classList.add('card__like_disabled');
+      this._element.querySelector('.card__like').classList.remove('card__like_active');
+    }
 
     return this._element;
   }

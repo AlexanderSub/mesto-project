@@ -1,4 +1,4 @@
-import Card from "./card.js";
+import Card from "./Card.js";
 
 export default class OtherUserCard extends Card {
   constructor({name, link, likes, _id, owner}, selector, handleOpenPopup) {
