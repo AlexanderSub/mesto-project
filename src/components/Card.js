@@ -1,13 +1,19 @@
 import {userId} from "../pages";
 
 export default class Card {
-  constructor({name, link, likes, _id}, selector, handleOpenPopup, handleDeleteLike, handlePutLike) {
+  constructor({
+                name,
+                link,
+                likes,
+                _id
+              }, selector, handleOpenPopup, handleDeleteButton, handleDeleteLike, handlePutLike) {
     this.name = name;
     this.link = link;
     this.likes = likes;
     this._id = _id;
     this._selector = selector;
     this._handleOpenPopup = handleOpenPopup;
+    this._handleDeleteButton = handleDeleteButton;
     this._handleDeleteLike = handleDeleteLike;
     this._handlePutLike = handlePutLike;
   }
@@ -33,14 +39,21 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._element.querySelector('.card__image')
+    this._element
+      .querySelector('.card__image')
       .addEventListener('click', () => {
         this._handleOpenPopup();
       });
-    this._element.querySelector('.card__like')
+    this._element
+      .querySelector('.card__like')
       .addEventListener('click', () => {
         this._likeCard();
-      })
+      });
+    this._element
+      .querySelector('.card__delete')
+      .addEventListener('click', () => {
+        this._handleDeleteButton();
+      });
   }
 
   _getElement() {
@@ -74,5 +87,13 @@ export default class Card {
     return this.likes.some((like) => {
       return like._id === userId
     })
+  }
+
+  deleteCard() {
+    this._element.remove();
+  }
+
+  removeDeleteBtn() {
+    this._element.querySelector('.card__delete').remove();
   }
 }
