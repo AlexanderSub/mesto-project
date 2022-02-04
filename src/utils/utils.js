@@ -1,4 +1,4 @@
-import { popups } from "./constants"
+import {popups} from "./constants"
 import Section from "../components/Section";
 import MyCard from "../components/MyCard";
 import PopupWithImage from "../components/PopupWithImage";
@@ -41,39 +41,57 @@ popups.forEach((popup) => {
   })
 })
 
+
+// создание карточки и добавление на страницу
 export const createCards = (cards) => {
-  const newCards = new Section({data: cards, renderer: (item) => {
-      const newCard = (userId === item.owner._id) ? new MyCard(item, '.card__template', () => {
-        const popup = new PopupWithImage('.popup_place-picture');
-        popup._openPopup(newCard.link, newCard.name);
-      }, () => {
-        const deletePopup = new PopupDeleteCard(
-          { popupType: '.popup_delete-card',
-            handleFormSubmit: (evt) => {
-              evt.preventDefault();
-              api.deleteCard(item._id)
-                .then(() => {
-                  newCard.deleteCard()
-                  deletePopup._closePopup();
-                })
-            }
-          });
-        deletePopup._openPopup();
-      },  (id) => {
-        return api.deleteLike(id)
-      }, (id) => {
-        return api.putLike(id)
-      }) : new OtherUserCard(item, '.card__template', () => {
-        const popup = new PopupWithImage('.popup_place-picture');
-        popup._openPopup(newCard.link, newCard.name);
-      }, (id) => {
-        return api.deleteLike(id)
-      }, (id) => {
-        return api.putLike(id)
-      });
-      const card = newCard.generate();
-      newCards.setCard(card);
-    }
-  }, '.cards');
+  const newCards = new Section({
+      data: cards,
+      renderer: (item) => {
+        const newCard = (userId === item.owner._id) ? new MyCard(
+            item,
+            '.card__template',
+            () => {
+              const popup = new PopupWithImage('.popup_place-picture');
+              popup._openPopup(newCard.link, newCard.name);
+            },
+            () => {
+              const deletePopup = new PopupDeleteCard(
+                {
+                  popupType: '.popup_delete-card',
+                  handleFormSubmit: (evt) => {
+                    evt.preventDefault();
+                    api.deleteCard(item._id)
+                      .then(() => {
+                        newCard.deleteCard()
+                        deletePopup._closePopup();
+                      })
+                  }
+                });
+              deletePopup._openPopup();
+            },
+            (id) => {
+              return api.deleteLike(id)
+            },
+            (id) => {
+              return api.putLike(id)
+            })
+          : new OtherUserCard(
+            item,
+            '.card__template',
+            () => {
+              const popup = new PopupWithImage('.popup_place-picture');
+              popup._openPopup(newCard.link, newCard.name);
+            },
+            (id) => {
+              return api.deleteLike(id)
+            },
+            (id) => {
+              return api.putLike(id)
+            });
+        const card = newCard.generate();
+        newCards.setCard(card);
+      }
+    },
+    '.cards');
   newCards.renderCards()
 }
