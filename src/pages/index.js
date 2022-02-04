@@ -13,10 +13,14 @@ import {
   addButton
 } from '../utils/constants';
 
-import { renderServerCards, renderNewCard } from '../components/Card';
+// import Card, { renderServerCards, renderNewCard } from '../components/Card';
 import { validationConfig } from '../utils/constants';
 import PopupWithForm from '../components/PopupWithForm';
 import UserInfo from '../components/UserInfo';
+import Section from "../components/Section";
+import PopupWithImage from "../components/PopupWithImage";
+import MyCard from "../components/MyCard.js";
+import OtherUserCard from "../components/OtherUserCard.js";
 
 export let userId
 
@@ -83,7 +87,7 @@ const addPlacePopup = new PopupWithForm({
   handleFormSubmit: (formData) => {
     api.postCard(formData.place_name, formData.place_picture)
     .then(card => {
-      renderNewCard([card])
+      //renderNewCard([card])
       addPlacePopup._closePopup()
       addPlacePopup._resetForm()
       addPlacePopup._submitButton.disabled = true
@@ -114,9 +118,27 @@ Promise.all([api.getUserData(), api.getInitialCards()])
   userAvatar.src = userData.avatar
   userNameInput.value = userData.name
   userAboutInput.value = userData.about
-
-  renderServerCards(cards);
-
+  const newCards = new Section({data: cards, renderer: (item) => {
+    // console.log(userId, item.owner._id);
+    // if (userId === item.owner._id) {
+    //   console.log('vaflya');
+    // }
+      const newCard = (userId === item.owner._id) ? new MyCard(item, '.card__template', () => {
+        const popup = new PopupWithImage('.popup_place-picture');
+        popup._openPopup(newCard.link, newCard.name);
+      }, () => {
+        api.deleteCard(item._id)
+          .then((res) => newCard.deleteCard())
+      }) : new OtherUserCard(item, '.card__template', () => {
+        const popup = new PopupWithImage('.popup_place-picture');
+        popup._openPopup(newCard.link, newCard.name);
+      });
+      const card = newCard.generate();
+      newCards.setCard(card);
+    }
+    }, '.cards');
+  //renderServerCards(cards);
+  newCards.renderCards()
   enableValidation(validationConfig);
 })
 .catch(err=>console.log(err));
