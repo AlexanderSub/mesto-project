@@ -59,9 +59,17 @@ export const createCards = (cards) => {
             }
           });
         deletePopup._openPopup();
+      },  (id) => {
+        return api.deleteLike(id)
+      }, (id) => {
+        return api.putLike(id)
       }) : new OtherUserCard(item, '.card__template', () => {
         const popup = new PopupWithImage('.popup_place-picture');
         popup._openPopup(newCard.link, newCard.name);
+      }, (id) => {
+        return api.deleteLike(id)
+      }, (id) => {
+        return api.putLike(id)
       });
       const card = newCard.generate();
       newCards.setCard(card);

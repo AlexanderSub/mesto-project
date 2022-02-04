@@ -1,8 +1,8 @@
 import Card from "./Card.js";
 
 export default class MyCard extends Card {
-  constructor({name, link, likes, _id, owner}, selector, handleOpenPopup, handleDeleteButton) {
-    super({name, link, likes, _id}, selector, handleOpenPopup);
+  constructor({name, link, likes, _id, owner}, selector, handleOpenPopup, handleDeleteButton,  handleDeleteLike, handlePutLike) {
+    super({name, link, likes, _id}, selector, handleOpenPopup,  handleDeleteLike, handlePutLike);
     this._handleDeleteButton = handleDeleteButton;
   }
   _setEventListeners() {

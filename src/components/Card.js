@@ -130,17 +130,36 @@ import {userId} from "../pages";
 // })
 
 export default class Card {
-  constructor({name, link, likes, _id}, selector, handleOpenPopup) {
+  constructor({name, link, likes, _id}, selector, handleOpenPopup, handleDeleteLike, handlePutLike) {
     this.name = name;
     this.link = link;
     this.likes = likes;
     this._id = _id;
     this._selector = selector;
     this._handleOpenPopup = handleOpenPopup;
+    this._handleDeleteLike = handleDeleteLike;
+    this._handlePutLike = handlePutLike;
   }
 
   _likeCard() {
-
+    if (this._checkLike()) {
+      this._handleDeleteLike(this._id)
+        .then((res) => {
+          this.likes = res.likes;
+          this._element.querySelector('.card__like-counter').textContent = this.likes.length;
+          this._element.querySelector('.card__like').classList.add('card__like_disabled');
+          this._element.querySelector('.card__like').classList.remove('card__like_active');
+        })
+    }
+    else {
+      this._handlePutLike(this._id)
+        .then((res) => {
+          this.likes = res.likes;
+          this._element.querySelector('.card__like-counter').textContent = this.likes.length;
+          this._element.querySelector('.card__like').classList.add('card__like_active');
+          this._element.querySelector('.card__like').classList.remove('card__like_disabled');
+        })
+    }
   }
 
   _setEventListeners() {
@@ -150,7 +169,7 @@ export default class Card {
     });
     this._element.querySelector('.card__like')
       .addEventListener('click', () => {
-
+        this._likeCard();
       })
   }
 
@@ -170,14 +189,19 @@ export default class Card {
     this._element.querySelector('.card__image').alt = this.name;
     this._element.querySelector('.card__image').src = this.link;
     this._element.querySelector('.card__like-counter').textContent = this.likes.length;
-    if (this.likes.some((like) => { return like._id === userId })) {
+    if (this._checkLike()) {
       this._element.querySelector('.card__like').classList.add('card__like_active');
       this._element.querySelector('.card__like').classList.remove('card__like_disabled');
-    } else {
+    }
+    else {
       this._element.querySelector('.card__like').classList.add('card__like_disabled');
       this._element.querySelector('.card__like').classList.remove('card__like_active');
     }
 
     return this._element;
+  }
+
+  _checkLike() {
+    return this.likes.some((like) => { return like._id === userId })
   }
 }

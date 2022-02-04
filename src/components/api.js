@@ -42,7 +42,7 @@ export default class Api {
   deleteCard(cardId) {
     return fetch(`${this.baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: this.headers,
+      headers: this.headers
     })
     .then(this._checkResponse)
   }
