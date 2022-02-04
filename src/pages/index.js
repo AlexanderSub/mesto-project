@@ -15,13 +15,9 @@ import {
 
 // import Card, { renderServerCards, renderNewCard } from '../components/Card';
 import { validationConfig } from '../utils/constants';
+import { createCards } from "../utils/utils.js";
 import PopupWithForm from '../components/PopupWithForm';
 import UserInfo from '../components/UserInfo';
-import Section from "../components/Section";
-import PopupWithImage from "../components/PopupWithImage";
-import MyCard from "../components/MyCard.js";
-import OtherUserCard from "../components/OtherUserCard.js";
-import PopupDeleteCard from "../components/PopupDeleteCard.js";
 
 export let userId
 
@@ -88,7 +84,7 @@ const addPlacePopup = new PopupWithForm({
   handleFormSubmit: (formData) => {
     api.postCard(formData.place_name, formData.place_picture)
     .then(card => {
-      //renderNewCard([card])
+      createCards([card])
       addPlacePopup._closePopup()
       addPlacePopup._resetForm()
       addPlacePopup._submitButton.disabled = true
@@ -119,34 +115,7 @@ Promise.all([api.getUserData(), api.getInitialCards()])
   userAvatar.src = userData.avatar
   userNameInput.value = userData.name
   userAboutInput.value = userData.about
-
-  const newCards = new Section({data: cards, renderer: (item) => {
-      const newCard = (userId === item.owner._id) ? new MyCard(item, '.card__template', () => {
-        const popup = new PopupWithImage('.popup_place-picture');
-        popup._openPopup(newCard.link, newCard.name);
-      }, () => {
-        const deletePopup = new PopupDeleteCard(
-          { popupType: '.popup_delete-card',
-            handleFormSubmit: (evt) => {
-            evt.preventDefault();
-              api.deleteCard(item._id)
-                .then(() => {
-                  newCard.deleteCard()
-                  deletePopup._closePopup();
-                })
-            }
-          });
-        deletePopup._openPopup();
-      }) : new OtherUserCard(item, '.card__template', () => {
-        const popup = new PopupWithImage('.popup_place-picture');
-        popup._openPopup(newCard.link, newCard.name);
-      });
-      const card = newCard.generate();
-      newCards.setCard(card);
-    }
-    }, '.cards');
-  //renderServerCards(cards);
-  newCards.renderCards()
+  createCards(cards);
   enableValidation(validationConfig);
 })
 .catch(err=>console.log(err));

@@ -6,16 +6,14 @@ export default class Section {
   }
 
   setCard(card) {
-    this._container.append(card)
+    if (this._cardsArray.length < 2){
+      this._container.prepend(card);
+    } else {
+      this._container.append(card)
+    }
   }
 
-  // clear() {
-  //   this._container.innerHTML = ''
-  // }
-
   renderCards() {
-    // this.clear()
-
     this._cardsArray.forEach(card => {
       this._renderer(card)
     });
