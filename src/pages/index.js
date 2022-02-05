@@ -46,7 +46,7 @@ const editProfilePopup = new PopupWithForm({
 editProfilePopup._setEventListeners()
 
 editButton.addEventListener('click', () => {
-  editProfilePopup._openPopup()
+  editProfilePopup.open()
 })
 const editProfileFormValidator = new FormValidator({data: validationConfig, form: editProfilePopup._form});
 editProfileFormValidator.enableValidation();
@@ -75,7 +75,7 @@ const avatarPopup = new PopupWithForm({
 avatarPopup._setEventListeners()
 
 avatarOverlay.addEventListener('click', () => {
-  avatarPopup._openPopup()
+  avatarPopup.open()
 })
 const avatarFormValidator = new FormValidator({data: validationConfig, form: avatarPopup._form});
 avatarFormValidator.enableValidation();
@@ -105,7 +105,7 @@ const addPlacePopup = new PopupWithForm({
 addPlacePopup._setEventListeners()
 
 addButton.addEventListener('click', () => {
-  addPlacePopup._openPopup()
+  addPlacePopup.open()
 })
 
 const addPlaceFormValidator = new FormValidator({data: validationConfig, form: addPlacePopup._form});

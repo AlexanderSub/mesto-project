@@ -4,7 +4,7 @@ export default class Popup {
     this._handleEscapeClose = this._closePopupByClickOnEscape.bind(this)
   }
 
-  _openPopup() {
+  open() {
     this._popup.classList.add('popup_opened')
     document.addEventListener('keydown', this._handleEscapeClose);
   }

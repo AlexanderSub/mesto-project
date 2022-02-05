@@ -15,7 +15,7 @@ export const createCards = (cards) => {
           '.card__template',
           () => {
             const popup = new PopupWithImage('.popup_place-picture');
-            popup._openPopup(newCard.link, newCard.name);
+            popup.open(newCard.link, newCard.name);
           },
           () => {
             const deletePopup = new PopupDeleteCard(
@@ -30,7 +30,7 @@ export const createCards = (cards) => {
                     })
                 }
               });
-            deletePopup._openPopup();
+            deletePopup.open();
           },
           (id) => {
             return api.deleteLike(id)
