@@ -15,8 +15,6 @@ export const validationConfig = {
   errorClass: 'popup__input-error_active'
 };
 
-export const popups = document.querySelectorAll('.popup')
-
 export const editProfileForm = document.forms.profileEdit
 export const editAvatarForm = document.forms.editAvatar
 

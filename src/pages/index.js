@@ -32,7 +32,7 @@ const editProfilePopup = new PopupWithForm({
           name: userData.name,
           about: userData.about
         })
-        editProfilePopup._closePopup()
+        editProfilePopup.close()
       })
       .catch(err => {
         console.log(err)
@@ -58,7 +58,7 @@ const avatarPopup = new PopupWithForm({
     api.editUserAvatar(formData.profile_avatar)
       .then(userData => {
         profileInfo._setUserAvatar({avatar: userData.avatar})
-        avatarPopup._closePopup()
+        avatarPopup.close()
         avatarPopup._resetForm()
         avatarPopup._submitButton.disabled = true
         avatarPopup._submitButton.classList.add('popup__save-button_disabled')
@@ -88,7 +88,7 @@ const addPlacePopup = new PopupWithForm({
     api.postCard(formData.place_name, formData.place_picture)
       .then(card => {
         createCards([card])
-        addPlacePopup._closePopup()
+        addPlacePopup.close()
         addPlacePopup._resetForm()
         addPlacePopup._submitButton.disabled = true
         addPlacePopup._submitButton.classList.add('popup__save-button_disabled')
