@@ -27,7 +27,7 @@ export default class PopupWithForm extends Popup {
     this._submitButton.textContent = 'Сохранение...'
   }
 
-  _setDefaultText() {
+  setDefaultText() {
     this._submitButton.textContent = this._submitButton.initialValue
   }
 
@@ -41,11 +41,8 @@ export default class PopupWithForm extends Popup {
     })
   }
 
-  _resetForm() {
-    this._form.reset()
-  }
-
   close() {
+    this._form.reset()
     super.close()
   }
 }

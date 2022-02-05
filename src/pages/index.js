@@ -28,7 +28,7 @@ const editProfilePopup = new PopupWithForm({
   handleFormSubmit: (formData) => {
     api.editUserData(formData.profile_name, formData.profile_description)
       .then(userData => {
-        profileInfo._setUserInfo({
+        profileInfo.setUserInfo({
           name: userData.name,
           about: userData.about
         })
@@ -38,7 +38,7 @@ const editProfilePopup = new PopupWithForm({
         console.log(err)
       })
       .finally(() => {
-        editProfilePopup._setDefaultText()
+        editProfilePopup.setDefaultText()
       })
   }
 })
@@ -57,9 +57,8 @@ const avatarPopup = new PopupWithForm({
   handleFormSubmit: (formData) => {
     api.editUserAvatar(formData.profile_avatar)
       .then(userData => {
-        profileInfo._setUserAvatar({avatar: userData.avatar})
+        profileInfo.setUserAvatar({avatar: userData.avatar})
         avatarPopup.close()
-        avatarPopup._resetForm()
         avatarPopup._submitButton.disabled = true
         avatarPopup._submitButton.classList.add('popup__save-button_disabled')
       })
@@ -67,7 +66,7 @@ const avatarPopup = new PopupWithForm({
         console.log(err)
       })
       .finally(() => {
-        avatarPopup._setDefaultText()
+        avatarPopup.setDefaultText()
       })
   }
 })
@@ -89,7 +88,6 @@ const addPlacePopup = new PopupWithForm({
       .then(card => {
         createCards([card])
         addPlacePopup.close()
-        addPlacePopup._resetForm()
         addPlacePopup._submitButton.disabled = true
         addPlacePopup._submitButton.classList.add('popup__save-button_disabled')
       })
@@ -97,7 +95,7 @@ const addPlacePopup = new PopupWithForm({
         console.log(err)
       })
       .finally(() => {
-        addPlacePopup._setDefaultText()
+        addPlacePopup.setDefaultText()
       });
   }
 })

@@ -5,12 +5,12 @@ export default class UserInfo {
     this._userAvatarElement = userAvatarSelector
   }
 
-  _setUserInfo({name, about}) {
+  setUserInfo({name, about}) {
     this._userNameElement.textContent = name
     this._userAboutElement.textContent = about
   }
 
-  _setUserAvatar({avatar}) {
+  setUserAvatar({avatar}) {
     this._userAvatarElement.src = avatar
   }
 
