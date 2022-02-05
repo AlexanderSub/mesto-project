@@ -3,14 +3,12 @@ import './index.css'
 import {api} from '../components/Api';
 import FormValidator from "../components/FormValidator";
 import {
-  userName,
-  userAbout,
-  userAvatar,
   userNameInput,
   userAboutInput,
   avatarOverlay,
   editButton,
-  addButton
+  addButton,
+  selectors
 } from '../utils/constants';
 
 import {validationConfig} from '../utils/constants';
@@ -21,7 +19,7 @@ import PopupWithImage from '../components/PopupWithImage';
 
 export let userId
 
-const profileInfo = new UserInfo(userName, userAbout, userAvatar)
+const profileInfo = new UserInfo(selectors.userName, selectors.userAbout, selectors.userAvatar)
 
 //Блок редактирования профиля
 const editProfilePopup = new PopupWithForm({
@@ -47,6 +45,9 @@ const editProfilePopup = new PopupWithForm({
 editProfilePopup.setEventListeners()
 
 editButton.addEventListener('click', () => {
+  const currentUser = profileInfo.getUserInfo()
+  userNameInput.value = currentUser.userName
+  userAboutInput.value = currentUser.userAbout
   editProfilePopup.open()
 })
 const editProfileFormValidator = new FormValidator({data: validationConfig, form: editProfilePopup._form});
@@ -58,10 +59,8 @@ const avatarPopup = new PopupWithForm({
   handleFormSubmit: (formData) => {
     api.editUserAvatar(formData.profile_avatar)
       .then(userData => {
-        profileInfo.setUserAvatar({avatar: userData.avatar})
+        profileInfo.setUserInfo({avatar: userData.avatar})
         avatarPopup.close()
-        avatarPopup._submitButton.disabled = true
-        avatarPopup._submitButton.classList.add('popup__save-button_disabled')
       })
       .catch(err => {
         console.log(err)
@@ -89,8 +88,6 @@ const addPlacePopup = new PopupWithForm({
       .then(card => {
         createCards([card])
         addPlacePopup.close()
-        addPlacePopup._submitButton.disabled = true
-        addPlacePopup._submitButton.classList.add('popup__save-button_disabled')
       })
       .catch(err => {
         console.log(err)
@@ -118,11 +115,12 @@ Promise.all([api.getUserData(), api.getInitialCards()])
   .then(([userData, cards]) => {
 
     userId = userData._id
-    userName.textContent = userData.name
-    userAbout.textContent = userData.about
-    userAvatar.src = userData.avatar
-    userNameInput.value = userData.name
-    userAboutInput.value = userData.about
+    profileInfo.setUserInfo({
+      name: userData.name,
+      about: userData.about,
+      avatar: userData.avatar
+    })
+
     createCards(cards);
   })
   .catch(err => console.log(err));

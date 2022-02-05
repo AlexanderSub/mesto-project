@@ -15,6 +15,12 @@ export const validationConfig = {
   errorClass: 'popup__input-error_active'
 };
 
+export const selectors = {
+  userName:   '.profile__name',
+  userAbout:  '.profile__description',
+  userAvatar: '.profile__avatar'
+}
+
 export const editProfileForm = document.forms.profileEdit
 export const editAvatarForm = document.forms.editAvatar
 
@@ -26,12 +32,10 @@ export const deleteCardForm = document.querySelector('.popup_delete-card-form')
 
 export const editButton = document.querySelector('.profile__edit-button')
 
-export const userName = document.querySelector('.profile__name')
 export const userNameInput = editProfileForm.elements.profile_name
-export const userAbout = document.querySelector('.profile__description')
+
 export const userAboutInput = editProfileForm.elements.profile_description
 
-export const userAvatar = document.querySelector('.profile__avatar')
 export const avatarOverlay = document.querySelector('.profile__overlay')
 
 export const addButton = document.querySelector('.profile__add-button')
