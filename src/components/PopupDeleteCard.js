@@ -9,12 +9,12 @@ export default class PopupDeleteCard extends Popup {
 
   open() {
     super.open();
-    this._setEventListeners();
+    this.setEventListeners();
   }
 
-  _setEventListeners() {
+  setEventListeners() {
     this._form.addEventListener('submit', this._handleFormSubmit);
-    super._setEventListeners();
+    super.setEventListeners();
   }
 
   close() {

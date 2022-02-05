@@ -10,10 +10,10 @@ export default class FormValidator {
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault();
     })
-    this._setEventListeners();
+    this.setEventListeners();
   }
 
-  _setEventListeners() {
+  setEventListeners() {
     const inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
     const buttonElement = this._form.querySelector(this._submitButtonSelector);
 

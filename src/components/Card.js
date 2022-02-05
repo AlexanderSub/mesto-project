@@ -38,7 +38,7 @@ export default class Card {
     }
   }
 
-  _setEventListeners() {
+  setEventListeners() {
     this._element
       .querySelector('.card__image')
       .addEventListener('click', () => {
@@ -66,7 +66,7 @@ export default class Card {
 
   generate() {
     this._element = this._getElement();
-    this._setEventListeners();
+    this.setEventListeners();
 
     this._element.querySelector('.card__title').textContent = this.name;
     this._element.querySelector('.card__image').alt = this.name;

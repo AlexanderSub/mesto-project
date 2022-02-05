@@ -17,6 +17,7 @@ import {validationConfig} from '../utils/constants';
 import {createCards} from "../utils/utils.js";
 import PopupWithForm from '../components/PopupWithForm';
 import UserInfo from '../components/UserInfo';
+import PopupWithImage from '../components/PopupWithImage';
 
 export let userId
 
@@ -43,7 +44,7 @@ const editProfilePopup = new PopupWithForm({
   }
 })
 
-editProfilePopup._setEventListeners()
+editProfilePopup.setEventListeners()
 
 editButton.addEventListener('click', () => {
   editProfilePopup.open()
@@ -71,7 +72,7 @@ const avatarPopup = new PopupWithForm({
   }
 })
 
-avatarPopup._setEventListeners()
+avatarPopup.setEventListeners()
 
 avatarOverlay.addEventListener('click', () => {
   avatarPopup.open()
@@ -100,7 +101,7 @@ const addPlacePopup = new PopupWithForm({
   }
 })
 
-addPlacePopup._setEventListeners()
+addPlacePopup.setEventListeners()
 
 addButton.addEventListener('click', () => {
   addPlacePopup.open()
@@ -108,6 +109,10 @@ addButton.addEventListener('click', () => {
 
 const addPlaceFormValidator = new FormValidator({data: validationConfig, form: addPlacePopup._form});
 addPlaceFormValidator.enableValidation();
+
+
+const imagePopup = new PopupWithImage('.popup_place-picture')
+imagePopup.setEventListeners()
 
 Promise.all([api.getUserData(), api.getInitialCards()])
   .then(([userData, cards]) => {

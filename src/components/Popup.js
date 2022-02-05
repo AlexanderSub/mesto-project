@@ -14,7 +14,7 @@ export default class Popup {
     document.removeEventListener('keydown', this._handleEscapeClose);
   }
 
-  _setEventListeners() {
+  setEventListeners() {
     this._popup.addEventListener('click', (evt) => {
       if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__close-icon')) {
         this.close()
