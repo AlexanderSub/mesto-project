@@ -1,8 +1,12 @@
 export default class Section {
-  constructor({data, renderer}, containerSelector) {
-    this._cardsArray = data
+  constructor({renderer}, containerSelector) {
     this._renderer = renderer
     this._container = document.querySelector(containerSelector);
+  }
+
+  addItem(data) {
+    this._cardsArray = data;
+    this.renderCards();
   }
 
   setCard(card) {
